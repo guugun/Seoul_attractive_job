@@ -1,33 +1,51 @@
-<html> 
-<head>
+<html>
+    <head>
 
+    </head>
+    <body>
+        <h1>입력폼에 넣을수 있는 다양한 값</h1>
+        <h2>여러개중 단일선택</h2>
+        <input type="radio" name="과목" value="국어">국어
+        <input type="radio" name="과목" value="영어">영어
+        <input type="radio" name="과목" value="수학">수학
+        <HR>
+        <input type="radio" name="음료" value="option1">아메리카노
+        <input type="radio" name="음료" value="option2">라떼
+        <input type="radio" name="음료" value="option3">카푸치노
+        <HR>
+        <input type="radio" name="음식">김밥
+        <input type="radio" name="음식">떡볶이
+        <input type="radio" name="음식">라면
 
+        <h2>여러개중 다중선택</h2>
+        <input type="checkbox" name="음식">김밥
+        <input type="checkbox" name="음식">떡볶이
+        <input type="checkbox" name="음식">라면
+        <BR>
+        <input type="checkbox" name="음료" value="option1">아메리카노
+        <input type="checkbox" name="음료" value="option2">라떼
+        <input type="checkbox" name="음료" value="option3">카푸치노
 
-</head>
-<body>
-    <h1>입력폼에 넣을 수 있는 다양한 값 </h1>
-    <h2>여러개중 단일선택</h2>
+        <h2>풀다운 메뉴</h2>
+        <select size="5">
+            <option>사이다</option>
+            <option>콜라</option>
+            <option>환타</option>
+            <option>우유</option>
+        </select>
 
-    
-    <input type="radio" name="과목">국어
-    <input type="radio" name="과목">영어
-    <input type="radio" name="과목">수학
-    <HR>
+        <select size="5" multiple>
+            <option>사이다</option>
+            <option>콜라</option>
+            <option>환타</option>
+            <option>우유</option>
+            <option>초코우유</option>
+            <option>딸기우유</option>
+        </select>
 
-    <input type="radio" name="과목">아메리카노
-    <input type="radio" name="음료">라떼
-    <input type="radio" name="음료">카푸치노
-    <HR>
-    <input type="radio" name="음식">김밥
-    <input type="radio" name="음식">떡볶이
-    <input type="radio" name="음식">라면
-    <HR>
-    <input type="checkbox" name="음식">김밥
-    <input type="checkbox" name="음식">떡볶이
-    <input type="checkbox" name="음식">라면
-
-
-</body>
-
-
-</html>
+        <h3>프로그레스바</h3>
+        <progress value="40" max="100"></progress>40%<BR>
+        <progress value="60" max="100"></progress>60%<BR>
+        <progress value="80" max="100"></progress>80%<BR>
+    </body>
+</html> 
