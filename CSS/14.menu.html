@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border: 1px solid rgb(38, 213, 70);
+           display: flex;
+        }
+
+        li{
+            flex: 1; /*flex 영역을 균등하게 나눠줌*/
+            width: 100px;
+            text-align: center;
+        }
+        li a{
+            display: block;
+            text-decoration: none;
+        }
+
+        li a:hover
+        {
+            background-color: rgb(69, 75, 73);
+            color: white;
+        }
+        </style>
+</head>
+<body>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">About</a></li>
+    </ul>
+</body>
+</html>

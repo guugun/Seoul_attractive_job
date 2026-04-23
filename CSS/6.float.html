@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+     <title> Document </title>
+    <!-- HTML 주석 -->
+    <style>
+        #cat1{ /*실무에선 많이 안쓰는 방식임. 컨테이너 바로 아래 있는 img 선택하겟단 뜻*/
+            width: 200px   ;
+            float: left; /*이미지 왼쪽으로 띄우기*/
+            margin: 50px; /*이미지 주변에 여백주기*/
+            border:1px dashed red;
+            paddding: 10px; /*이미지 안쪽에 여백주기*/
+        }
+        #cat2{ /*실무에선 많이 안쓰는 방식임. 컨테이너 바로 아래 있는 img 선택하겟단 뜻*/
+            width: 200px;
+            float: right; /*이미지 오른쪽으로 띄우기*/
+            margin: 10px; /*이미지 주변에 여백주기*/
+            border: 1px dashed blue;
+            padding: 10px; /*이미지 안쪽에 여백주기*/
+        }
+        .container{
+            border: 3px dashed orange;
+        }
+
+    </style>
+    </head>
+
+    <body>
+        <h1>이미지를 통한 페이지 흐름 이해하기 </h1>
+        <div class="container"> 
+         <img src="images/cat1.jpeg" id="cat1">
+         <img src="images/cat1.jpeg" id="cat2">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Vel quas hic recusandae quos doloribus earum excepturi dolore. Odit, aspernatur. 
+          Aspernatur praesentium natus molestiae necessitatibus provident facilis, 
+          maiores quia consequatur officia!
+        </div>
+    </body>
+</html>
