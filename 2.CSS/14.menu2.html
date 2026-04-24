@@ -5,37 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        ul{
-            list-style: none;
+        ul {
+            list-style-type: none;
             margin: 0;
             padding: 0;
-            border: 1px solid rgb(38, 213, 70);
-           display: flex;
+            border: 1px solid #555;
+            display: flex;
         }
-
-        li{
-            flex: 1; /*flex 영역을 균등하게 나눠줌*/
+        li {
+            flex: 1; /* flex 영역을 꽉 채우기 */
             width: 100px;
             text-align: center;
         }
-        li a{
-            display: block;
+        li a {
+            display: block; /* 전체 영역을 꽉 차게 */
             text-decoration: none;
         }
 
-        li a:hover
-        {
-            background-color: rgb(69, 75, 73);
+        li a:hover {
+            background-color: #555;
             color: white;
         }
-        </style>
+    </style>
 </head>
 <body>
     <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">News</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#">Contant</a></li>
         <li><a href="#">About</a></li>
-    </ul>
+    </ul>    
 </body>
 </html>

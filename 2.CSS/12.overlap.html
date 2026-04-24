@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .container {
+            height: 400px;
+            position: relative;
+            margin: 30px;
+        }
+
+        .box1, .box2 {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            background-color: #48adff;
+            opacity: 0.6;
+            position: absolute;
+        }
+
+        .box2 {
+            background-color: #3dff40;
+        }
+
+        .overlay {
+            top: 200px;
+        }
+
+        .box1:hover {
+            z-index: 5;
+            opacity: 1.0;
+            transform-style: all;
+            transition-duration: 2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box1">상단 영역</div>
+        <div class="box2 overlay">하단 영역</div>
+    </div>
+</body>
+</html>

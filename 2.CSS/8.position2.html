@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .center{
+        .bg {
+            height: 300px;
+            background-color: orange;
+        }
+        .center {
             background-color: orangered;
         }
-
-        .fixed{
+        .fixed {
             width: 100px;
             height: 100px;
-            background-color: teal;
-            background-image: url(images/starbucks.jpg);
+            background-color: white;
+            background-image: url(images/starbucks.png);
             background-size: 100% 100%;
             position: fixed;
             bottom: 50px;
@@ -26,14 +29,12 @@
     <div class="bg center"></div>
     <div class="bg"></div>
     <div class="fixed"></div>
-
     <script>
         const elem = document.querySelector('.fixed');
-        elem.onclick = () => { /* 이미지를 클릭하는 이벤트가 발생했을 때 실행할 코드 */
-            elem.style.transform = elem.style.transform === 'scale(0.2)' ? 
-            'scale(1)' : 'scale(0.2)';
-        };
-    
+
+        elem.onclick = () => {
+            elem.style.transform = elem.style.transform === 'scale(0.2)' ? 'scale(1)' : 'scale(0.2)';
+        }
     </script>
 </body>
 </html>

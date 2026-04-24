@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            color: white;
+            background-color: orange;
+            margin: 5px;
+        }
+
+        .location {
+            background-color: orangered;
+            position: relative; /* relative 상대적, absolute 절대적 */
+            top: 50px;
+            left: 50px;
+        }
+        .image {
+            width: 300px;
+            height: 200px;
+            background-image: url(images/cat1.png);
+            background-size: 100% 100%;
+        }
+        .image-text {
+            position: relative;
+            top: 50px;
+            left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div>1</div>
+    <div class="location">2</div>
+    <div>3</div>
+    <div class="image">
+        <p class="image-text">고양이</p>
+    </div>
+</body>
+</html>
