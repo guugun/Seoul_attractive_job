@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+
+        table{
+            border-collapse: collapse;
+        }
+        td {
+            padding: 10px;
+            border: 1px solid black;
+
+        }
+    </style>
+</head>
+<body>
+    <table id="table1">
+        <tr >
+            <tr>
+                <td>셀1</td>
+                <td>셀2</td>
+                <td>셀3</td>
+            </tr>
+
+                <tr>
+                    <td>셀4</td>
+                    <td>셀5</td>
+                    <td>셀6</td>
+                </tr>
+
+                <tr>
+                    <td>셀7</td>
+                    <td>셀8</td>
+                    <td>셀9</td>
+                </tr>
+        </tr>
+    </table>
+
+
+    <table id="table2">
+        <tr >
+            <tr>
+                <td>셀1</td>
+                <td>셀2</td>
+                <td>셀3</td>
+            </tr>
+
+                <tr>
+                    <td>셀4</td>
+                    <td>셀5</td>
+                    <td>셀6</td>
+                </tr>
+
+                <tr>
+                    <td>셀7</td>
+                    <td>셀8</td>
+                    <td>셀9</td>
+                </tr>
+        </tr>
+    </table>
+
+    <button onclick="changeOddCells()">홀수 셀 색상변경</button>
+    <button onclick="changeEvenCells()">짝수 셀 색상변경</button>   
+
+    <script>
+     
+
+        function changeOddCells(){ //홀수
+            const cells = document.querySelectorAll('#table2 td'); //셀 전체를 가져와서, 홀수번째 셀만 색상을 바꿔보자')
+            Array.from(cells).forEach((cell, index) => {
+                if (index % 2 === 0) {
+                    cell.style.backgroundColor = 'lightblue';
+                }
+            });
+        }
+
+        function changeEvenCells(){ //짝수
+            const cells = document.querySelectorAll('#table2 td'); //셀 전체를 가져와서, 홀수번째 셀만 색상을 바꿔보자')
+            Array.from(cells).forEach((cell, index) => {
+                if (index % 2 === 1) {
+                    cell.style.backgroundColor = 'lightblue';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

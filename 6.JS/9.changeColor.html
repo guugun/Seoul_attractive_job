@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="text">색상 변경 버튼</h1>
+
+
+    <button onclick="changeColor()">색상 변경</button>
+
+    <script>
+        function changeColor(){
+            //const heading = document.body;
+            //document.body.style.backgroundColor = 'red';
+
+            //1. 여기 처음 클릭에서 왜 두번클릭해야 빨간색이 되는지 살펴보기
+            
+            if (document.body.style.backgroundColor != 'white'){ //==white를 하면안됨. 왜냐하면 초기값은 white도 red도 아니기때문에, 첫 클릭에선 화면이 흰색이어도 red로 안변함 
+                document.body.style.backgroundColor = 'red';
+            } else {
+                document.body.style.backgroundColor = 'white';
+            }
+        }
+
+    </script>
+</body>
+</html> 

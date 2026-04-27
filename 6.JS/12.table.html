@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        td {
+            padding: 10px;
+            border: 1px solid black;
+
+        }
+    </style>
+</head>
+<body>
+    <table border ="1">
+        <tr >
+            <tr>
+                <td>셀1</td>
+                <td>셀2</td>
+                <td>셀3</td>
+            </tr>
+
+                <tr>
+                    <td>셀4</td>
+                    <td>셀5</td>
+                    <td>셀6</td>
+                </tr>
+
+                <tr>
+                    <td>셀7</td>
+                    <td>셀8</td>
+                    <td>셀9</td>
+                </tr>
+        </tr>
+    </table>
+
+    <button onclick="changeOddCells()">홀수 셀 색상변경</button>
+    <button onclick="changeEvenCells()">짝수 셀 색상변경</button>   
+
+    <script>
+        // function changeOddCells(){ //홀수
+        //     const cells = document.querySelectorAll('td'    ); //셀 전체를 가져와서, 홀수번째 셀만 색상을 바꿔보자')
+        //     for (let i =0; i< cells.length; i++){
+        //         if (i%2 == 0){ //셀의 인덱스가 짝수면 홀수번째 셀임. 왜냐하면 인덱스는 0부터 시작하기 때문
+        //             cells[i].style.backgroundColor = 'yellow';
+        //         }
+        //     }
+        // }
+
+        // function changeEvenCells(){ //짝수
+        //     const cells = document.querySelectorAll('td');
+        //     for (let i =0; i<cells.length;i++) {
+        //         if (i%2==1){
+        //         cells[i].style.backgroundColor = 'lightblue';
+        //     }
+        // }
+    // }
+
+        function changeOddCells(){ //홀수
+            const cells = document.getElementsByTagName('td');
+            //우리가 써둔 셀번호는 홀수가 짝수 index셀에 있음
+            console.log(cells[1]);//셀 전체를 가져와서, 홀수번째 셀만 색상을 바꿔보자')
+           
+            for (let i = 0; i < cells.length; i++) {
+                if (i % 2 === 0) {
+                    cells[i].style.backgroundColor = 'yellow';
+                }
+            }
+        }
+
+        function changeEvenCells(){ //짝수
+            const cells = document.getElementsByTagName('td');
+            console.log(cells[0]);
+            console.log(cells);
+
+            //cells가 HTMLCollection이기 때문에 forEach를 바로 쓸 수 없어서, Array.from()을 이용해서 배열로 바꿔준 후에 forEach를 사용할 수 있음
+            Array.from(cells).forEach((cell, index) => {
+                if (index % 2 === 1) {
+                    cell.style.backgroundColor = 'lightblue';
+                }
+            });
+            
+        }
+    </script>
+</body>
+</html>

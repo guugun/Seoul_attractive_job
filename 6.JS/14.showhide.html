@@ -1,0 +1,43 @@
+<!DOCTYPE html>  <!--이 파일도 function부분다시 공부해봐야하고, 파일도 다시다운하기.-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mydiv{
+            display: none;
+            width: 200px;
+            height: 200px;
+            background-color: lightsalmon;
+        }
+    </style>
+</head>
+<body>
+    <h1>Show / Hide</h1>
+    <button onclick = "showhide_withbug()"> 숨겨진 요소 토글</button>
+
+    <div id = "mydiv"></div>
+    <script>
+        function showhide_withbug(){
+            const div = document.querySelector('#mydiv');
+
+        if(div.style.display == 'none'){
+            div.style.display = 'block';
+        }
+        else {
+            div.style.display = 'none';
+        }
+
+        function showhide2_bugfix1(){
+            const div = document.querySelector('#mydiv');
+            const displayStyle = window.getComputedStyle(div).display;
+
+        }
+
+
+    }
+
+    </script>
+</body>
+</html>

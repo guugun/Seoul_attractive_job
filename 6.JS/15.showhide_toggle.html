@@ -1,0 +1,33 @@
+<!DOCTYPE html>  <!--이 파일도 function부분다시 공부해봐야하고, 파일도 다시다운하기.-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mydiv{
+            display: none;
+            width: 200px;
+            height: 200px;
+            background-color: lightsalmon;
+        }
+    </style>
+</head>
+<body>
+    <h1>Show / Hide</h1>
+    <button onclick = "showhide_toggle()"> 숨겨진 요소 토글</button>
+
+    <div id = "mydiv"></div>
+    <script>
+        function showhide_toggle(){
+            const div = document.querySelector('#mydiv');
+            div.classList.toggle('show');
+            div.classList.toggle('hide');
+            //지금 이 코드가 동작안하는 이유는 #mydiv에서 display값이 설정되어있는데,
+            //원래 디테일한 스타일이 설정되어있으면, 디테일한 것 우선순위로 적용됨
+            
+        }
+
+    </script>
+</body>
+</html>

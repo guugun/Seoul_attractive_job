@@ -17,12 +17,20 @@
 
         function plus(){
             const result = document.getElementById('result');
-            result.innerText = Number(result.innerText) + 1;
+            //result.innerText = Number(result.innerText) + 1;
+            let value = parseInt(result.textContent);
+
+            value = value + 1;
+            console.log(value);
+            result.textContent = value;
+
+
         }
         function minus(){
-            const result = document.getElementById('result');
-            result.innerText = Number(result.innerText) - 1;
+            const result = document.getElementById('result').textContent -=1;
+            //result.innerText = Number(result.innerText) - 1;
         }
     </script>
+
 </body>
 </html>
