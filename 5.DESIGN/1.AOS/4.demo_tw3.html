@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind + AOS Demo</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white">
+
+  <!-- HERO -->
+  <section class="h-screen flex flex-col justify-center items-center bg-gradient-to-r from-purple-700 to-indigo-900">
+    <h1 data-aos="fade-up" class="text-5xl font-bold mb-6">Scroll Animation Showcase</h1>
+    <p data-aos="fade-up" data-aos-delay="300" class="text-lg opacity-80">
+      Tailwind + AOS로 만든 인터랙티브 페이지
+    </p>
+  </section>
+
+  <!-- SECTION 1 -->
+  <section class="h-[800px] flex items-center justify-center bg-gray-800">
+    <div data-aos="fade-right" class="bg-white text-black p-10 rounded-xl shadow-2xl">
+      <h2 class="text-3xl font-bold mb-4">Fade Right</h2>
+      <p>스크롤하면 오른쪽에서 등장</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section class="h-[800px] flex items-center justify-center bg-gradient-to-r from-pink-500 to-red-500">
+    <div data-aos="zoom-in" class="bg-white text-black p-10 rounded-xl shadow-2xl">
+      <h2 class="text-3xl font-bold mb-4">Zoom In</h2>
+      <p>확대되면서 등장하는 효과</p>
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="h-[800px] flex items-center justify-center bg-gray-700">
+    <div data-aos="flip-left" class="bg-white text-black p-10 rounded-xl shadow-2xl">
+      <h2 class="text-3xl font-bold mb-4">Flip</h2>
+      <p>카드 뒤집기 애니메이션</p>
+    </div>
+  </section>
+
+  <!-- GRID SECTION -->
+  <section class="min-h-[1000px] bg-black py-20">
+    <h2 data-aos="fade-up" class="text-4xl text-center mb-16 font-bold">
+      카드 애니메이션
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 px-10">
+      <div data-aos="fade-up" data-aos-delay="100" class="bg-gray-800 p-6 rounded-xl">
+        카드 1
+      </div>
+      <div data-aos="fade-up" data-aos-delay="300" class="bg-gray-800 p-6 rounded-xl">
+        카드 2
+      </div>
+      <div data-aos="fade-up" data-aos-delay="500" class="bg-gray-800 p-6 rounded-xl">
+        카드 3
+      </div>
+    </div>
+  </section>
+
+  <!-- PARALLAX 느낌 -->
+  <section class="h-[900px] flex items-center justify-center bg-fixed bg-cover bg-center"
+    style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');">
+    
+    <div data-aos="fade-up" class="bg-black/70 p-10 rounded-xl">
+      <h2 class="text-4xl font-bold">Parallax 느낌</h2>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="h-[700px] flex flex-col items-center justify-center bg-gradient-to-r from-green-400 to-blue-500">
+    <h2 data-aos="fade-up" class="text-4xl font-bold mb-4">끝 🎉</h2>
+    <p data-aos="fade-up" data-aos-delay="300">스크롤 끝까지 왔습니다</p>
+  </section>
+
+  <!-- AOS SCRIPT -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: false,
+      offset: 120,
+    });
+  </script>
+
+</body>
+</html>

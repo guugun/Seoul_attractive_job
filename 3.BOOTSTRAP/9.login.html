@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <title>Login</title>
+
+  <style>
+    body {
+      background-color: #f1f3f5;
+      height: 100vh;
+    }
+
+    /* 카드 wrapper */
+    .login-wrapper {
+      position: relative;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    /* 오른쪽 아래 그림자 */
+    .shadow-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+
+      background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.9));
+      transform: translate(16px, 16px);
+      filter: blur(20px);
+      z-index: 0;
+    }
+
+    /* 실제 카드 */
+    .login-card {
+      position: relative;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      z-index: 1;
+    }
+
+    /* 버튼 hover */
+    .btn-login {
+      transition: all 0.3s;
+    }
+
+    .btn-login:hover {
+      background-color: purple;
+      border-color: purple;
+    }
+  </style>
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+
+  <div class="login-wrapper">
+
+    <!-- 그림자 -->
+    <div class="shadow-layer"></div>
+
+    <!-- 카드 -->
+    <div class="login-card">
+
+      <h3 class="text-center mb-4 fw-bold">Login</h3>
+
+      <form>
+
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 btn-login">
+          로그인
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

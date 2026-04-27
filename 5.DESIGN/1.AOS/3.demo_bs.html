@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bootstrap + AOS Demo</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<style>
+body {
+    background-color: #111;
+    color: white;
+    scroll-behavior: smooth;
+}
+
+/* 카드 스타일 */
+.card-custom {
+    background: #2d2d2d;
+    border-radius: 15px;
+    padding: 30px;
+    transition: all 0.4s;
+}
+
+.card-custom:hover {
+    transform: scale(1.1);
+}
+
+/* 이미지 */
+.img-custom {
+    border-radius: 15px;
+    transition: 0.4s;
+}
+
+.img-custom:hover {
+    transform: scale(1.1);
+}
+
+/* 버튼 */
+.btn-custom {
+    background: #0d6efd;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    transition: 0.4s;
+}
+
+.btn-custom:hover {
+    background: purple;
+    transform: scale(1.1);
+}
+
+/* 섹션 간격 */
+.section {
+    padding: 150px 0;
+}
+</style>
+
+</head>
+<body>
+
+<!-- HERO -->
+<section class="vh-100 d-flex flex-column justify-content-center align-items-center text-center">
+    <h1 class="display-3 mb-3" data-aos="fade-down">
+        Scroll Animation Demo
+    </h1>
+    <p class="text-secondary" data-aos="fade-up" data-aos-delay="200">
+        Bootstrap + AOS Version
+    </p>
+</section>
+
+<!-- SECTION 1 카드 -->
+<section class="section bg-dark">
+    <div class="container">
+        <h2 class="text-center mb-5" data-aos="fade-up">Card Animations</h2>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card-custom" data-aos="fade-up">Card 1</div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-custom" data-aos="fade-up" data-aos-delay="200">Card 2</div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-custom" data-aos="fade-up" data-aos-delay="400">Card 3</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 2 이미지 -->
+<section class="section">
+    <div class="container text-center">
+        <h2 class="mb-5" data-aos="zoom-in">Image Effects</h2>
+
+        <div class="row justify-content-center g-4">
+            <div class="col-md-3">
+                <img src="https://picsum.photos/300/200"
+                     class="img-fluid img-custom"
+                     data-aos="zoom-in">
+            </div>
+            <div class="col-md-3">
+                <img src="https://picsum.photos/301/200"
+                     class="img-fluid img-custom"
+                     data-aos="flip-left">
+            </div>
+            <div class="col-md-3">
+                <img src="https://picsum.photos/302/200"
+                     class="img-fluid img-custom"
+                     data-aos="flip-right">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 3 슬라이드 -->
+<section class="section bg-dark">
+    <div class="container">
+        <h2 class="text-center mb-5" data-aos="fade-right">Slide Animations</h2>
+
+        <div class="mb-5 card-custom" data-aos="fade-right">
+            Left Slide
+        </div>
+
+        <div class="card-custom text-end" data-aos="fade-left">
+            Right Slide
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 4 텍스트 -->
+<section class="section">
+    <div class="container">
+        <h2 class="text-center mb-5" data-aos="fade-up">Text Reveal</h2>
+
+        <p class="text-secondary fs-5" data-aos="fade-up" data-aos-delay="100">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+        </p>
+
+        <p class="text-secondary fs-5 mt-4" data-aos="fade-up" data-aos-delay="300">
+            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
+        </p>
+    </div>
+</section>
+
+<!-- SECTION 5 Stagger -->
+<section class="section bg-dark">
+    <div class="container text-center">
+        <h2 class="mb-5" data-aos="fade-up">Stagger Effects</h2>
+
+        <div class="row g-3">
+            <div class="col-md-3">
+                <div class="bg-primary p-5 rounded" data-aos="zoom-in" data-aos-delay="0"></div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-primary p-5 rounded" data-aos="zoom-in" data-aos-delay="100"></div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-primary p-5 rounded" data-aos="zoom-in" data-aos-delay="200"></div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-primary p-5 rounded" data-aos="zoom-in" data-aos-delay="300"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section d-flex flex-column align-items-center justify-content-center text-center">
+    <h2 class="mb-4" data-aos="fade-up">Ready to Build Something?</h2>
+
+    <button class="btn-custom" data-aos="zoom-in">
+        Get Started
+    </button>
+</section>
+
+<script>
+AOS.init({
+    duration: 1000,
+    once: false
+});
+</script>
+
+</body>
+</html>

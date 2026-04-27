@@ -1,0 +1,38 @@
+<!DOCTYPE html> <!--이파일도 거의다 이해는햇는데 if문부분 확인필요해서, 새로운파일로 다운받기-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>구구단 출력기</h1>
+    <input type="text" id="input" placeholder="단을 입력하시오">
+    <button onclick="printGugudan()">출력하기</button>
+    
+    <div id="result">여기에 구구단이 출력됩니다.</div>
+
+    <script>
+        function printGugudan(){
+            const userInput = document.getElementById('input');
+            const result = document.getElementById('result');
+            console.log(result);
+
+            //textContent는 태그를 무시하고 텍스트만 출력하는 속성
+             //result.textContent = userInput.value + '단';
+            //innerHTML은 태그도 인식하는 속성
+            if (userInputValue >=1&& userInputValue <=9){
+                const result = document.getElementById('result');
+                result.innerHTML = '<h3>입력은 1부터 9까지의 숫자만 가능합니다.</h3>';
+                return;
+            }
+            
+            result.innerHTML = '<h3>' + userInput.value + '단</h3>';
+             for(let i = 1; i <= 9; i++){
+                result.innerHTML += userInput.value + ' x ' + i + ' = ' + (userInput.value * i) + '<br>';
+             }
+            }
+        
+    </script>
+</body>
+</html>

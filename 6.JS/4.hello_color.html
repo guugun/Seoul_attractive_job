@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="myheading" style="color:red">나의 헤딩  </h1>
+    <p>여기는 좀더 긴 나의 문장이 있는 곳</p>
+    <button onclick="changeHeaderColor()">액션버튼1 </button>
+    <script>
+        function changeHeaderColor(){
+            const myheading = document.getElementById("myheading");// getElementById는 "Id로 + 요소를 + 가져와라" 라는뜻
+            console.log(myheading);
+            myheading.style.color = "blue";
+            myheading.style.backgroundColor = "yellow";
+            myheading.style.width = '200px';
+
+        }
+    </script>
+</body>
+
+</html>

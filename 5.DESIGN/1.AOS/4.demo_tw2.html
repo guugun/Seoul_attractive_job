@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <title>Scroll Animation Showcase</title>
+</head>
+
+<body class="bg-gray-900 text-white overflow-x-hidden">
+
+<!-- HERO -->
+<section class="h-screen flex flex-col justify-center items-center text-center">
+  <h1 class="text-5xl font-bold mb-6" data-aos="fade-up">
+    Tailwind + AOS
+  </h1>
+  <p class="text-lg text-gray-300" data-aos="fade-up" data-aos-delay="200">
+    스크롤하면 다양한 애니메이션이 등장합니다
+  </p>
+</section>
+
+<!-- SECTION 1 - FADE -->
+<section class="h-[800px] flex flex-col justify-center items-center gap-10">
+  <div data-aos="fade-up" class="text-3xl font-semibold">Fade Up</div>
+  <div data-aos="fade-down" class="text-3xl font-semibold">Fade Down</div>
+  <div data-aos="fade-right" class="text-3xl font-semibold">Fade Right</div>
+  <div data-aos="fade-left" class="text-3xl font-semibold">Fade Left</div>
+</section>
+
+<!-- SECTION 2 - ZOOM -->
+<section class="h-[800px] flex justify-center items-center gap-10 flex-wrap">
+  <div data-aos="zoom-in" class="w-40 h-40 bg-blue-500 flex items-center justify-center rounded-xl">Zoom In</div>
+  <div data-aos="zoom-out" class="w-40 h-40 bg-red-500 flex items-center justify-center rounded-xl">Zoom Out</div>
+  <div data-aos="zoom-in-up" class="w-40 h-40 bg-green-500 flex items-center justify-center rounded-xl">Zoom Up</div>
+</section>
+
+<!-- SECTION 3 - STAGGER -->
+<section class="h-[800px] flex flex-col justify-center items-center">
+  <h2 class="text-4xl mb-10" data-aos="fade-up">Stagger Cards</h2>
+
+  <div class="grid grid-cols-3 gap-6">
+    <div data-aos="fade-up" data-aos-delay="0" class="p-6 bg-gray-800 rounded-xl">1</div>
+    <div data-aos="fade-up" data-aos-delay="100" class="p-6 bg-gray-800 rounded-xl">2</div>
+    <div data-aos="fade-up" data-aos-delay="200" class="p-6 bg-gray-800 rounded-xl">3</div>
+    <div data-aos="fade-up" data-aos-delay="300" class="p-6 bg-gray-800 rounded-xl">4</div>
+    <div data-aos="fade-up" data-aos-delay="400" class="p-6 bg-gray-800 rounded-xl">5</div>
+    <div data-aos="fade-up" data-aos-delay="500" class="p-6 bg-gray-800 rounded-xl">6</div>
+  </div>
+</section>
+
+<!-- SECTION 4 - PARALLAX 느낌 -->
+<section class="h-[800px] relative flex items-center justify-center overflow-hidden">
+  
+  <div class="absolute text-8xl font-bold opacity-10"
+       data-aos="fade-right"
+       data-aos-duration="2000">
+    BACK
+  </div>
+
+  <div class="relative text-4xl z-10"
+       data-aos="fade-up">
+    Parallax 느낌 텍스트
+  </div>
+
+</section>
+
+<!-- SECTION 5 - FLIP -->
+<section class="h-[800px] flex justify-center items-center gap-10">
+  <div data-aos="flip-left" class="w-40 h-40 bg-purple-500 flex items-center justify-center rounded-xl">Flip L</div>
+  <div data-aos="flip-right" class="w-40 h-40 bg-yellow-500 flex items-center justify-center rounded-xl">Flip R</div>
+</section>
+
+<!-- SECTION 6 - HOVER + SCROLL -->
+<section class="h-[800px] flex justify-center items-center gap-10 flex-wrap">
+
+  <div data-aos="fade-up"
+       class="w-60 h-60 bg-pink-500 rounded-xl flex items-center justify-center transition-transform duration-500 hover:scale-110 hover:rotate-3">
+    Hover + Scroll
+  </div>
+
+  <div data-aos="fade-up" data-aos-delay="200"
+       class="w-60 h-60 bg-indigo-500 rounded-xl flex items-center justify-center transition-all duration-500 hover:bg-indigo-300">
+    Color Change
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<section class="h-[600px] flex flex-col justify-center items-center">
+  <h2 class="text-4xl mb-4" data-aos="fade-up">끝 👋</h2>
+  <p data-aos="fade-up" data-aos-delay="200">여기까지 스크롤했네요</p>
+</section>
+
+<script>
+  AOS.init({
+    duration: 1000,
+    once: false, // 반복 재생
+    offset: 120,
+  });
+</script>
+
+</body>
+</html>

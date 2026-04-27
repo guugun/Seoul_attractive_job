@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tailwind + AOS Demo</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <style>
+    body {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+<!-- HERO -->
+<section class="h-screen flex flex-col justify-center items-center text-center">
+  <h1 class="text-5xl font-bold mb-4" data-aos="fade-down">
+    Scroll Animation Demo
+  </h1>
+  <p class="text-gray-300" data-aos="fade-up" data-aos-delay="200">
+    Tailwind + AOS Example Page
+  </p>
+</section>
+
+<!-- SECTION 1: 카드 -->
+<section class="py-32 px-10 bg-gray-800">
+  <h2 class="text-3xl mb-10 text-center" data-aos="fade-up">Card Animations</h2>
+
+  <div class="grid grid-cols-3 gap-8">
+    <div class="bg-gray-700 p-6 rounded-xl shadow-lg hover:scale-110 transition"
+         data-aos="fade-up">
+      Card 1
+    </div>
+    <div class="bg-gray-700 p-6 rounded-xl shadow-lg hover:scale-110 transition"
+         data-aos="fade-up" data-aos-delay="200">
+      Card 2
+    </div>
+    <div class="bg-gray-700 p-6 rounded-xl shadow-lg hover:scale-110 transition"
+         data-aos="fade-up" data-aos-delay="400">
+      Card 3
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: 이미지 -->
+<section class="py-40 px-10">
+  <h2 class="text-3xl mb-20 text-center" data-aos="zoom-in">Image Effects</h2>
+
+  <div class="flex gap-10 justify-center">
+    <img src="https://picsum.photos/300/200"
+         class="rounded-xl shadow-xl hover:scale-110 transition"
+         data-aos="zoom-in">
+    <img src="https://picsum.photos/301/200"
+         class="rounded-xl shadow-xl hover:rotate-3 transition"
+         data-aos="flip-left">
+    <img src="https://picsum.photos/302/200"
+         class="rounded-xl shadow-xl hover:-rotate-3 transition"
+         data-aos="flip-right">
+  </div>
+</section>
+
+<!-- SECTION 3: 좌우 슬라이드 -->
+<section class="py-40 bg-gray-800 px-10">
+  <h2 class="text-3xl text-center mb-20" data-aos="fade-right">
+    Slide Animations
+  </h2>
+
+  <div class="space-y-20">
+    <div class="bg-gray-700 p-10 rounded-xl"
+         data-aos="fade-right">
+      Left Slide
+    </div>
+
+    <div class="bg-gray-700 p-10 rounded-xl text-right"
+         data-aos="fade-left">
+      Right Slide
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: 텍스트 -->
+<section class="py-40 px-20">
+  <h2 class="text-3xl mb-20 text-center" data-aos="fade-up">
+    Text Reveal
+  </h2>
+
+  <p class="text-xl leading-loose text-gray-300"
+     data-aos="fade-up" data-aos-delay="100">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+  </p>
+
+  <p class="text-xl leading-loose text-gray-300 mt-10"
+     data-aos="fade-up" data-aos-delay="300">
+    Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
+  </p>
+</section>
+
+<!-- SECTION 5: 스태거 애니메이션 -->
+<section class="py-40 bg-gray-800 px-10">
+  <h2 class="text-3xl text-center mb-20" data-aos="fade-up">
+    Stagger Effects
+  </h2>
+
+  <div class="grid grid-cols-4 gap-6">
+    <div class="bg-purple-500 p-10 rounded-xl" data-aos="zoom-in" data-aos-delay="0"></div>
+    <div class="bg-purple-500 p-10 rounded-xl" data-aos="zoom-in" data-aos-delay="100"></div>
+    <div class="bg-purple-500 p-10 rounded-xl" data-aos="zoom-in" data-aos-delay="200"></div>
+    <div class="bg-purple-500 p-10 rounded-xl" data-aos="zoom-in" data-aos-delay="300"></div>
+  </div>
+</section>
+
+<!-- SECTION 6: CTA -->
+<section class="py-60 flex flex-col items-center justify-center text-center">
+  <h2 class="text-4xl mb-6" data-aos="fade-up">
+    Ready to Build Something?
+  </h2>
+
+  <button class="px-10 py-4 bg-blue-500 rounded-full shadow-lg
+                 hover:bg-purple-600 transition transform hover:scale-110"
+          data-aos="zoom-in">
+    Get Started
+  </button>
+</section>
+
+<script>
+  AOS.init({
+    duration: 1000,
+    once: false
+  });
+</script>
+
+</body>
+</html>
