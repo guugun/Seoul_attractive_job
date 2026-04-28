@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        console.log('0.나는 헤더에 있는 스크립트 블럭');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mytitle0 = document.getElementById('title');
+            console.log("0번에서 시도: ", mytitle0);
+        })
+    </script>
+</head>
+<body>
+    <script>
+        console.log("1. 나는 BODY 바로 아래 있는 스크립트 블럭");
+        const mytitle1 = document.getElementById('title');
+        console.log("1번에서 시도: ", mytitle1);
+    </script>
+
+    <h1 id="title">마이 타이틀</h1>
+
+    <script>
+        window.onload = function() {
+            console.log('4. 모든 리소스 (html/css/js/img 등) 이 다 로딩 완료 됨');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // HTML 에 대한 DOM 로딩이 완료된 시점. (CSS, Image 등은 로딩이 완료 안됐을수 있음.)
+            console.log('3. DOM 로딩 완료');
+            const mytitle3 = document.getElementById('title');
+            console.log("3번에서 시도: ", mytitle3);
+        });
+    </script>
+
+    <script>
+        console.log("2. 나는 BODY 맨 아래 있는 스크립트 블럭");
+    </script>
+</body>
+</html>

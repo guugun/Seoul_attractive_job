@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>카운트 다운 </h1>
+    <input type = "number", id = "timeInput", placeholder="시간 입력(초)", min="1">
+    <button id="startButton" onclick="startTimer()">시작</button>
+
+    <div id="timeContainer">
+        
+
+    </div>
+
+    <script>
+        function startTimer() {
+            let inputValue = parseInt(document.getElementById('timeInput').value);
+            const timerContainer = document.getElementById('timeContainer');
+            //const timerDisplay = document.getElementById('timerDisplay');
+            const startButton = document.getElementById('startButton');
+
+            startButton.disabled = true; // 
+           const timerId = setInterval(() => {
+                if (inputValue <= 0) {
+                    clearInterval(timerId);
+                    timerDisplay.textContent = "시간 종료!";
+                    startButton.disabled = false; // 
+                } else {
+                    timerDisplay.textContent = `남은 시간: ${inputValue}초`;
+                    inputValue--;
+                }
+            }, 1000);
+        }
+
+
+</script>
+
+</body> 
+</html>

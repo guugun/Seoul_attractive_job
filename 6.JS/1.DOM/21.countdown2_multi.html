@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <h1>카운트다운</h1>
+    <input type="number" id="timeInput" placeholder="초를 입력하세요" min="1">
+    <button onclick="startTimer()" id="startButton">시작</button>
+    <div id="timerContainer">
+        <!-- 카운트 다운을 출력하곳 -->
+    </div>
+
+    <script>
+        function startTimer() {
+            // 1. 입력값 가져온다
+            // 2. setInterval()을 통해서.. 매초 카운트 다운을 한다.
+            // 3. 남은 초를 DOM에다가 (P태그) 에다가 출력한다.
+            // 4. 시간이 만료됐으면, 끝났다고 출력한다.
+            let inputValue = parseInt(document.getElementById('timeInput').value);
+            const timerContainer = document.getElementById('timerContainer');
+            const startButton = document.getElementById('startButton');
+
+            // 원하는 새로운 DOM 요소 만들기
+            const timerP = document.createElement('p');
+            timerP.textContent = `${inputValue}초 가 남았습니다.`;
+
+            // 새로 만든 요소를 원하는 div에다가 추가하기
+            timerContainer.appendChild(timerP);
+
+            const timerId = setInterval(() => {
+                if (inputValue <= 0) {
+                    clearInterval(timerId);
+                    timerP.textContent = '시간이 종료되었습니다.';
+                } else {
+                    inputValue--;
+                    timerP.textContent = `${inputValue}초 가 남았습니다.`;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

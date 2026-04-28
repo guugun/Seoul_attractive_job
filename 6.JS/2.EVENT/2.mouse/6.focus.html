@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="myInput" placeholder="여기 아이디를 입력하세요.">
+    <input type="password" id="myInput2" placeholder="여기 비밀번호를 입력하세요.">
+    <script>
+        document.getElementById('myInput').addEventListener('focus', () => {
+            console.log('ID입력창 활성화 됨');
+        });
+
+        document.getElementById('myInput').addEventListener('blur', () => {
+            console.log('ID입력창 비활성화 됨');
+        });
+        document.getElementById('myInput2').addEventListener('focus', () => {
+            console.log('PW입력창 활성화 됨');
+        });
+
+        document.getElementById('myInput2').addEventListener('blur', () => {
+            console.log('PW입력창 비활성화 됨');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="text">색상 변경 버튼</h1>
+    <button onclick="changeColor()">색상 변경</button>
+    <script>
+        function changeColor() {
+            // const heading = document.getElementById('text');
+            // heading.style.color = 'red';
+
+            // 1. 이거 처음 클릭에서 왜 두번클릭해야 빨간색이 되는지 살펴보기
+            // 2. F12개발자도구에서 Elements 켜놓고 지켜보면서 디버깅하기
+            // 3. 아래 논리 구조를 다양하게 변경하면서 이 문제 해결하기
+            if (document.body.style.backgroundColor == 'white') {
+                document.body.style.backgroundColor = 'red';
+            } else {
+                document.body.style.backgroundColor = 'white';
+            }
+        }
+    </script>
+</body>
+</html>
