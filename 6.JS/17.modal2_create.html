@@ -4,8 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/modal.css">
 </head>
 <body>
-    
+    <h1>홈페이지 인사말</h1>
+    <p>우리 홈페이지 소개 내용</p>
+    <p>우리 홈페이지 소개 내용</p>
+    <p>우리 홈페이지 소개 내용</p>
+    <button id="open">모달 열기</button>
+
+    <!-- <div class="modal-wrapper" style="display: none">
+        <div class="modal">
+            <div class="modal-title">안녕하세요</div>
+            <p>모달에 입력할 내용을 작성</p>
+            <div class="close-wrapper">
+                <button id="close">닫기</button>
+            </div>
+        </div>
+    </div> -->
+
+    <script>
+        const open = document.getElementById('open');
+
+        open.onclick = () => {
+            const modalWrapper = document.createElement('div');
+            modalWrapper.className = 'modal-wrapper';
+
+            modalWrapper.innerHTML = `
+                <div class="modal">
+                    <div class="modal-title">안녕하세요</div>
+                    <p>모달에 입력할 내용을 작성</p>
+                    <div class="close-wrapper">
+                        <button id="close">닫기</button>
+                    </div>
+                </div>
+            `
+
+            // body의 끝에 추가함
+            document.body.appendChild(modalWrapper);
+
+            // 닫기 버튼에는 이벤트 붙이기
+            document.getElementById('close').onclick = () => {
+                modalWrapper.remove();
+            }
+        }
+
+        close.onclick = () => {
+            modal.style.display = 'none';
+        }
+    </script>
 </body>
 </html>

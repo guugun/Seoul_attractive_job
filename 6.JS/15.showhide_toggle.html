@@ -1,33 +1,33 @@
-<!DOCTYPE html>  <!--이 파일도 function부분다시 공부해봐야하고, 파일도 다시다운하기.-->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        #mydiv{
+        #mydiv {
             display: none;
             width: 200px;
             height: 200px;
             background-color: lightsalmon;
         }
+
+        .show {
+            display: block !important;
+        }
     </style>
 </head>
 <body>
     <h1>Show / Hide</h1>
-    <button onclick = "showhide_toggle()"> 숨겨진 요소 토글</button>
-
-    <div id = "mydiv"></div>
+    <button onclick="showhide_toggle()">숨겨진 요소 토글</button>
+    <div id="mydiv">이것은 숨겨진 Div 요소 입니다.</div>
     <script>
-        function showhide_toggle(){
+        function showhide_toggle() {
+            // 문제의 원인은 DOM에는 CSS 내용이 들어가지 않음. 그래서 sytle로 적용된것을 못 가져옴. (inline만 가져옴)
             const div = document.querySelector('#mydiv');
             div.classList.toggle('show');
-            div.classList.toggle('hide');
-            //지금 이 코드가 동작안하는 이유는 #mydiv에서 display값이 설정되어있는데,
-            //원래 디테일한 스타일이 설정되어있으면, 디테일한 것 우선순위로 적용됨
-            
-        }
-
+        } 
     </script>
 </body>
 </html>
+ 

@@ -1,38 +1,63 @@
-<!DOCTYPE html> <!--이파일도 거의다 이해는햇는데 if문부분 확인필요해서, 새로운파일로 다운받기-->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>구구단</title>
 </head>
 <body>
     <h1>구구단 출력기</h1>
-    <input type="text" id="input" placeholder="단을 입력하시오">
+    <input type="text" placeholder="단을 입력하시오 (예: 2)" id="input">
     <button onclick="printGugudan()">출력하기</button>
-    
-    <div id="result">여기에 구구단이 출력됩니다.</div>
+
+    <div id="result">
+        <!-- 결과가 출력될곳 -->
+    </div>
 
     <script>
-        function printGugudan(){
-            const userInput = document.getElementById('input');
-            const result = document.getElementById('result');
-            console.log(result);
+        function printGugudan() {
+            // ==============
+            // 입력값 가져오기
+            // ==============
+            // console.log('버튼 클릭 잘 됨');
+            const userInput = document.getElementById('input'); // 이건 DOM 이 반환됨
+            const userInputValue = userInput.value; // 해당 DOM 요소가 가지고 있는 값
 
-            //textContent는 태그를 무시하고 텍스트만 출력하는 속성
-             //result.textContent = userInput.value + '단';
-            //innerHTML은 태그도 인식하는 속성
-            if (userInputValue >=1&& userInputValue <=9){
+            // const userValue = document.getElementById('input').value; // 나중에는 그냥 이렇게 한줄로 하면 됨.
+
+            console.log(userInputValue);
+
+            const userInputValueNumber = parseInt(userInputValue); // 문자열 숫자를 숫자 숫자로 바꿈.
+
+            // ==============
+            // 입력값 검증하기
+            // ==============
+            if (isNaN(userInputValue)) {
                 const result = document.getElementById('result');
-                result.innerHTML = '<h3>입력은 1부터 9까지의 숫자만 가능합니다.</h3>';
+                result.innerHTML = '<h3>입력은 숫자만 허용합니다.</h3>';
                 return;
             }
-            
-            result.innerHTML = '<h3>' + userInput.value + '단</h3>';
-             for(let i = 1; i <= 9; i++){
-                result.innerHTML += userInput.value + ' x ' + i + ' = ' + (userInput.value * i) + '<br>';
-             }
+
+            if (userInputValueNumber < 1 || userInputValueNumber > 9) {
+                const result = document.getElementById('result');
+                result.innerHTML = '<h3>입력는 1~9 까지만 허용됩니다.</h3>';
+                return;
             }
-        
+
+            // ==============
+            // 출력값 만들기
+            // ==============
+            const result = document.getElementById('result');
+            console.log(result);
+            // textContent 는 말 그대로 글자 본문을 입력할때 사용
+            // innerHTML 은 HTML값을 파싱할수 있도록 출력...
+            result.innerHTML = '<h3>' + userInputValue + '단</h3>'
+
+            for (let i = 1; i <= 9; i++) {
+                // result.innerHTML += userInputValue + ' x ' + i + ' = ' + userInputValue * i + '<BR>'
+                result.innerHTML += `${userInputValue} x ${i} = ${userInputValue * i}<BR>`
+            }
+        }
     </script>
 </body>
 </html>
