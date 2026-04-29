@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Words Hangman</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+        #wordDisplay {
+            font-size: 28px;
+            letter-spacing: 8px;
+            font-family: monospace;
+            margin: 12px 0;
+        }
+        #info {
+            font-size: 18px;
+            margin: 6px 0;
+        }
+        #message {
+            font-size: 18px;
+            margin: 12px 0;
+            min-height: 24px;
+        }
+        button {
+            font-size: 16px;
+            padding: 6px 14px;
+            cursor: pointer;
+            margin: 6px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>5 Words Hangman</h1>
+
+    <div id="wordDisplay"></div>
+    <div id="info">남은 기회: <span id="chances"></span></div>
+    <div id="info">사용한 글자: <span id="usedLetters"></span></div>
+
+    <button onclick="newGame()">글자 맞추기 새 게임</button>
+
+    <div id="message">알파벳 한 글자씩 맞춰보세요!</div>
+
+    <script>
+        // 5글자 단어 목록
+        const words = [
+            'light', 'apple', 'house', 'water', 'music',
+            'plant', 'beach', 'cloud', 'dance', 'earth',
+            'fruit', 'green', 'happy', 'piano', 'smile',
+            'tiger', 'world', 'bread', 'chair', 'dream'
+        ];
+
+        const MAX_CHANCES = 6;
+        let answer = '';
+        let guessed = [];
+        let usedLetters = [];
+        let chances = 0;
+        let gameOver = false;
+
+        const wordDisplay = document.getElementById('wordDisplay');
+        const chancesEl = document.getElementById('chances');
+        const usedLettersEl = document.getElementById('usedLetters');
+        const messageEl = document.getElementById('message');
+
+        function newGame() {
+            answer = words[Math.floor(Math.random() * words.length)];
+            guessed = Array(answer.length).fill('_');
+            usedLetters = [];
+            chances = MAX_CHANCES;
+            gameOver = false;
+            messageEl.textContent = '알파벳 한 글자씩 맞춰보세요!';
+            render();
+        }
+
+        function guessLetter(letter) {
+            if (gameOver) return;
+            if (usedLetters.includes(letter)) return;
+
+            usedLetters.push(letter);
+
+            if (answer.includes(letter)) {
+                for (let i = 0; i < answer.length; i++) {
+                    if (answer[i] === letter) guessed[i] = letter;
+                }
+            } else {
+                chances--;
+            }
+
+            render();
+            checkGameEnd();
+        }
+
+        function render() {
+            wordDisplay.textContent = guessed.join(' ');
+            chancesEl.textContent = chances;
+            usedLettersEl.textContent = usedLetters.join(', ');
+        }
+
+        function checkGameEnd() {
+            if (!guessed.includes('_')) {
+                messageEl.textContent = `축하합니다! 단어는 "${answer}" 였습니다. 🎉`;
+                gameOver = true;
+            } else if (chances <= 0) {
+                wordDisplay.textContent = answer.split('').join(' ');
+                messageEl.textContent = `아쉽게도 실패! 정답은 "${answer}" 였습니다. 💀`;
+                gameOver = true;
+            }
+        }
+
+        // 키보드 입력으로 글자 맞추기
+        document.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            if (key >= 'a' && key <= 'z') guessLetter(key);
+        });
+
+        // 시작
+        newGame();
+    </script>
+</body>
+</html>
