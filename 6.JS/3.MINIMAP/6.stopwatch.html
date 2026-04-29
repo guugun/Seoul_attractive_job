@@ -1,0 +1,157 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* ========== 화면 전체(body) ========== */
+        body {
+            margin: 0;                    /* 브라우저 기본 여백 제거 */
+            height: 100vh;                /* 화면 전체 높이 (vh = viewport height) */
+            display: flex;                /* 자식들을 flex 방식으로 배치 */
+            justify-content: center;      /* 가로 가운데 정렬 */
+            align-items: center;          /* 세로 가운데 정렬 */
+            background: #1e1e2f;          /* 진한 남색 배경 */
+            font-family: Arial, sans-serif; /* 글꼴 (Arial → 없으면 sans-serif) */
+        }
+
+        /* ========== 스톱워치 카드 박스 ========== */
+        .stopwatch-box {
+            background: #2c2c3e;                          /* 카드 배경 (조금 밝은 남색) */
+            padding: 30px;                                /* 안쪽 여백 */
+            border-radius: 15px;                          /* 모서리 둥글게 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);      /* 아래쪽 그림자 (입체감) */
+            text-align: center;                           /* 안 글자들 가운데 */
+            width: 300px;                                 /* 카드 가로 크기 고정 */
+        }
+
+        /* ========== 시간 표시 영역 ========== */
+        #display {
+            font-size: 40px;              /* 큰 글씨 */
+            color: #00ffcc;               /* 형광 민트색 (네온 느낌) */
+            margin-bottom: 25px;          /* 아래 버튼과 간격 */
+            letter-spacing: 2px;          /* 글자 사이 간격 */
+        }
+
+        /* ========== 버튼 묶음 컨테이너 ========== */
+        .button-container {
+            display: flex;                    /* 버튼들을 가로로 나란히 */
+            justify-content: space-between;   /* 양 끝에 붙이고 사이는 균등 분배 */
+        }
+
+        /* ========== 버튼 공통 스타일 ========== */
+        button {
+            flex: 1;                      /* 남는 공간을 1:1:1로 균등 분배 (버튼 같은 크기) */
+            margin: 0 5px;                /* 위아래 0, 좌우 5px (버튼 사이 간격) */
+            padding: 10px;                /* 안쪽 여백 (버튼 두툼하게) */
+            font-size: 14px;              /* 글자 크기 */
+            border: none;                 /* 기본 테두리 제거 */
+            border-radius: 8px;           /* 모서리 둥글게 */
+            cursor: pointer;              /* 마우스 오버 시 손가락 커서 */
+            transition: 0.2s;             /* 속성 변화를 0.2초에 걸쳐 부드럽게 */
+        }
+
+        /* ========== 각 버튼별 색상 ========== */
+        #startButton {
+            background: #4caf50;          /* 초록색 (시작) */
+            color: white;
+        }
+
+        #stopButton {
+            background: #f44336;          /* 빨간색 (중지) */
+            color: white;
+        }
+
+        #resetButton {
+            background: #2196f3;          /* 파란색 (초기화) */
+            color: white;
+        }
+
+        /* ========== 버튼에 마우스 올렸을 때 ========== */
+        button:hover {
+            opacity: 0.8;                 /* 살짝 투명 (어두워지는 느낌) */
+            transform: scale(1.05);       /* 5% 확대 (커지는 효과) */
+        }
+    </style>
+</head>
+<body>
+    <!-- 스톱워치 전체 -->
+    <div class="stopwatch-box">
+        <!-- 스탑워치 표시 영역 -->
+        <div id="display">00:00.00</div>
+        <!-- 스탑워치 버튼 컨테이너 -->
+        <div class="button-container">
+            <button id="startButton">시작</button>
+            <button id="stopButton">중지</button>
+            <button id="resetButton">초기화</button>
+        </div>
+    </div>
+    <script>
+        // ========== 1. DOM 요소들을 가져오기 ==========
+        // HTML에 있는 요소들을 id로 찾아서 변수에 담아둠 (나중에 조작하기 위함)
+        const display     = document.getElementById('display');      // 시간을 보여줄 div
+        const startButton = document.getElementById('startButton');  // 시작 버튼
+        const stopButton  = document.getElementById('stopButton');   // 중지 버튼
+        const resetButton = document.getElementById('resetButton');  // 초기화 버튼
+
+        // ========== 2. 상태 관리용 변수들 ==========
+        let startTime;           // 스톱워치 시작 시점 (ms 단위 timestamp)
+        let difference = 0;      // 누적 경과 시간 (ms)
+        let running = false;     // 현재 타이머가 돌고 있는지 여부
+        let timerId;             // setInterval이 반환하는 ID (나중에 멈출 때 사용)
+
+        // ========== 3. 시작 함수 ==========
+        function startTimer() {
+            if (running) return;  // 이미 돌고 있으면 중복 실행 방지
+
+            running = true;
+            // 현재시간 - 이전 누적시간 = 가상의 시작점
+            // → 이렇게 해야 중지 후 다시 시작할 때 이어서 측정됨
+            startTime = new Date().getTime() - difference;
+            // 10ms마다 updateTimer() 함수를 반복 실행 (= 시간 갱신)
+            timerId = setInterval(updateTimer, 10);
+        }
+
+        // ========== 4. 중지 함수 ==========
+        function stopTimer() {
+            if (!running) return;     // 안 돌고 있으면 무시
+            running = false;
+            clearInterval(timerId);   // setInterval 반복 멈춤 (시간 갱신 정지)
+            // 주의: difference는 그대로 둠 → 다시 시작하면 이어서 진행 가능
+        }
+
+        // ========== 5. 초기화 함수 ==========
+        function resetTimer() {
+            clearInterval(timerId);             // 혹시 돌고 있으면 멈추고
+            running = false;
+            difference = 0;                     // 누적 시간 0으로 리셋
+            display.textContent = '00:00.00';   // 화면 표시도 0으로 리셋
+        }
+
+        // ========== 6. 시간 갱신 함수 (10ms마다 호출됨) ==========
+        function updateTimer() {
+            // 지금 시각 - 시작 시각 = 흘러간 시간(ms)
+            const updatedTime = new Date().getTime();
+            difference = updatedTime - startTime;
+
+            // ms를 분/초/밀리초로 분해
+            // (% 는 나머지 연산자, Math.floor는 소수점 버림)
+            let minutes      = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)); // 분
+            let seconds      = Math.floor((difference % (1000 * 60)) / 1000);             // 초
+            let milliseconds = Math.floor((difference % 1000) / 10);                      // 1/100초
+
+            // 숫자가 한 자리면 앞에 '0'을 붙여 두 자리로 만듦 (삼항 연산자)
+            // 예) 5초 → "05"  /  12초 → "12"
+            display.textContent =
+                (minutes      < 10 ? '0' + minutes      : minutes)      + ':' +
+                (seconds      < 10 ? '0' + seconds      : seconds)      + '.' +
+                (milliseconds < 10 ? '0' + milliseconds : milliseconds);
+        }
+
+        // ========== 7. 버튼에 클릭 이벤트 연결 ==========
+        startButton.addEventListener('click', startTimer);  // 시작 버튼 → startTimer 호출
+        stopButton.addEventListener('click', stopTimer);    // 중지 버튼 → stopTimer 호출
+        resetButton.addEventListener('click', resetTimer);  // 초기화 버튼 → resetTimer 호출
+    </script>
+</body>
+</html>

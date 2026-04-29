@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+
+
+</style>
+
+
+</head>
+<body>
+    <h1>오늘 할일</h1>
+    <input type="text" id="new-todo" placeholder="할 일을 입력하세요">
+    <button id="add-todo">추가</button>
+    <ul id="todo-list"></ul>
+
+    <div id="result"></div> <!-- 결과가 출력될 곳 -->
+    <div><ol id="todolist"><!-- 입력값 히스토리가 출력될 곳 --></ol></div>
+
+<script>
+    //1. 버튼이 클릭되면
+    //2. 거기 값 읽어와서 ul아래 li추가하기 
+    document.getElementById('add-todo').addEventListener('click', ()=>{
+        const newTodo = document.getElementById('new-todo').value; //입력값 읽어오기
+
+        if(newTodo.trim()=="") return;
+
+        const new_li = document.createElement('li'); // 새로운 li 요소를 만든다
+
+        new_li.textContent = newTodo; //새로운 li요소의 내용은 newTodo의 값으로 한다.
+
+        const todoList = document.getElementById('todo-list');
+        todoList.appendChild(new_li);
+
+        //입력창 클리어하기
+        document.getElementById('new-todo').value = '';
+    })
+
+</script>
+
+
+    </body>
+</html>
