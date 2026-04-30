@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>TTS 예제</h1>
+    <textarea id="text" rows="4" cols="50">안녕, 이건 한글이야.</textarea><br>
+    <div class="controls">
+        <select id="voiceSelect"><!-- 브라우저로부터 음성목록을 가져와서 출력할곳 --></select>
+        <button id="speakButton">읽어주기</button>
+    </div>
+
+    <script>
+
+        const voiceSelect = document.getElementById('voiceSelect');
+
+        // Web Speech API를 사용해서...
+        if ('speechSynthesis' in window) {
+            const updateVoices = () => {
+                const voices = window.speechSynthesis.getVoices();
+                console.log('사용 가능한 목소리 목록: ', voices);
+
+                voiceSelect.innerHTML = ''; // 현재 목록 초기화
+
+                voices.forEach((voice, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.text = `${voice.name} (${voice.lang})`;
+                    voiceSelect.add(option);
+                });
+            };
+
+            window.speechSynthesis.addEventListener('voiceschanged', updateVoices);
+
+            // 최초 업데이트
+            updateVoices();
+
+        } else {
+            alert('이 브라우저는 음성 기능을 지원하지 않습니다.');
+        }
+
+        const speakText = () => {
+            const selectedVoiceIndex = voiceSelect.value;
+            const selectedVoice = window.speechSynthesis.getVoices()[selectedVoiceIndex];
+            const text = document.getElementById('text').value;
+            const speech = new SpeechSynthesisUtterance(text);
+            speech.voice = selectedVoice;
+            speechSynthesis.speak(speech);
+        }
+
+        const speakButton = document.getElementById('speakButton');
+        speakButton.addEventListener('click', speakText);
+    </script>
+</body>
+</html>

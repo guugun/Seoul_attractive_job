@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .done {
+            text-decoration: line-through;
+        }
+        #todo-list li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>오늘 할일 (Todo 리스트)</h1>
+    <input type="text" id="new-todo" placeholder="할일 입력">
+    <button id="add-todo">추가</button>
+    <ul id="todo-list"><!-- 할일들이 표시될곳--></ul>
+    <script>
+        // 1. 버튼이 클릭되면...
+        // 2. 거기 값 읽어와서.. ul아래 li 추가하기...
+        document.getElementById('add-todo').addEventListener('click', () => {
+            const newTodo = document.getElementById('new-todo').value;
+
+            if (newTodo.trim() == '') return; // 입력값의 앞뒤 공백 제거 및 입력값이 빈칸이면 종료
+
+            const new_li = document.createElement('li');
+            new_li.textContent = newTodo;
+
+            // 클링 이벤트를 나의 li 에도 걸기
+            new_li.addEventListener('click', () => {
+                // if (new_li.classList.contains('done')) {
+                    // new_li.classList.remove('done');
+                // } else {
+                    // new_li.classList.add('done');
+                // }
+                new_li.classList.toggle('done');
+            })
+
+            const todoList = document.getElementById('todo-list');
+            todoList.appendChild(new_li);
+
+            // 입력창 클리어 하기
+            document.getElementById('new-todo').value = '';
+        });
+
+        // 기능개선: 엔터를 통한 버튼 클릭하기 추가
+        document.getElementById('new-todo').addEventListener('keydown', (ev) => {
+            if (ev.key === 'Enter') {
+                document.getElementById('add-todo').click(); // 버튼을 클릭한 액션을 대신 수행
+            }
+        });
+    </script>
+</body>
+</html>

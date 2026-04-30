@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>TTS 예제</h1>
+    <textarea id="text" rows="4" cols="50">안녕, 이건 한글이야.</textarea><br>
+    <!--rows:의 세로 줄 수 (높이). 한 번에 보이는 텍스트 줄의 개수를 4줄로 지정. -->
+    <!--cols:의 가로 줄 수 (너비). 한 번에 보이는 텍스트 열의 개수를 50열로 지정. -->
+    <button onclick="speak()">읽어주기</button>
 
-
-    <body>
-        <h1>TTS 예제</h1>
-        <textarea id="text" rows="4" cols="50"> Hello, this is a text-to-speech example.</textarea>
-        <button onclick="speak()">읽어주기</button>
-
-        <script>
-            function speak() {
-                const text = document.getElementById('text').value;
-                const speech = new SpeechSynthesisUtterance(text);
-                window.speechSynthesis.speak(speech);
-            }
-        </script>
-
-    </body>
+    <script>
+        function speak() {
+            const text = document.getElementById('text').value;
+            const speech = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+</body>
 </html>
+
+
+<textarea id="text" rows="4" cols="50"> </textarea> 
+<br>
+<button onclick="speak()">읽어주기  </button>
+
+<script>
+    function speak()
+    {
+        const text = document.getElementById('text').value;
+        const speech = new SpeechSynthesis.speak(speech);
+
+    }
+</script>
