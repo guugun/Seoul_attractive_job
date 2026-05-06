@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacman</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        #score {
+            font-size: 24px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        canvas {
+            border: 2px solid #1a1aff;
+            border-radius: 4px;
+        }
+        #message {
+            margin-top: 14px;
+            font-size: 18px;
+            color: #FFD700;
+            min-height: 28px;
+        }
+        #restart {
+            margin-top: 10px;
+            padding: 8px 24px;
+            font-size: 16px;
+            background: #1a1aff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: none;
+        }
+        #restart:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div id="score">SCORE: 0</div>
+    <canvas id="gameCanvas" width="560" height="560"></canvas>
+    <div id="message">방향키로 움직이세요!</div>
+    <button id="restart">다시 시작</button>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreEl = document.getElementById('score');
+        const messageEl = document.getElementById('message');
+        const restartBtn = document.getElementById('restart');
+
+        const TILE = 40;         // 타일 크기
+        const COLS = 14;         // 가로 타일 수
+        const ROWS = 14;         // 세로 타일 수
+        const DOT_SCORE = 10;
+
+        let score, dots, pacman, direction, nextDirection, animFrame, mouthAngle, mouthDir;
+
+        function initGame() {
+            score = 0;
+            scoreEl.textContent = 'SCORE: 0';
+            messageEl.textContent = '방향키로 움직이세요!';
+            restartBtn.style.display = 'none';
+            mouthAngle = 0.25;
+            mouthDir = 1;
+
+            // 도트 생성 (모든 타일에 배치)
+            dots = [];
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    dots.push({ x: c, y: r, eaten: false });
+                }
+            }
+
+            // 팩맨 초기 위치 (중앙)
+            pacman = {
+                x: 0,           // 타일 단위 x
+                y: 0,           // 타일 단위 y
+                px: 0,          // 픽셀 단위 x (부드러운 이동용)
+                py: 0,
+                speed: 1,       // 픽셀/프레임
+                moving: false   
+            };
+            direction = { x: 0, y: 0 };
+            nextDirection = { x: 1, y: 0 };
+
+            if (animFrame) cancelAnimationFrame(animFrame);
+            gameLoop();
+        }
+
+        // 도트 먹기 체크
+        function eatDots() {
+            const tileX = Math.round(pacman.px / TILE);
+            const tileY = Math.round(pacman.py / TILE);
+            dots.forEach(d => {
+                if (!d.eaten && d.x === tileX && d.y === tileY) {
+                    d.eaten = true;
+                    score += DOT_SCORE;
+                    scoreEl.textContent = 'SCORE: ' + score;
+                }
+            });
+        }
+
+        // 모든 도트 먹었는지
+        function allEaten() {
+            return dots.every(d => d.eaten);
+        }
+
+        // 팩맨 이동
+        function movePacman() {
+            // 타일 중앙에 도달했을 때 방향 전환
+            const cx = pacman.px % TILE;
+            const cy = pacman.py % TILE;
+
+            if (cx === 0 && cy === 0) {
+                direction = { ...nextDirection };
+            }
+
+            const nextTileX = Math.round(pacman.px / TILE) + direction.x;
+            const nextTileY = Math.round(pacman.py / TILE) + direction.y;
+
+            // 경계 체크 (반대편으로 워프)
+            const wrappedX = (nextTileX + COLS) % COLS;
+            const wrappedY = (nextTileY + ROWS) % ROWS;
+
+            if (cx === 0 && cy === 0) {
+                // 워프 처리
+                if (nextTileX < 0) pacman.px = (COLS - 1) * TILE;
+                else if (nextTileX >= COLS) pacman.px = 0;
+                else if (nextTileY < 0) pacman.py = (ROWS - 1) * TILE;
+                else if (nextTileY >= ROWS) pacman.py = 0;
+                else {
+                    pacman.px += direction.x * pacman.speed;
+                    pacman.py += direction.y * pacman.speed;
+                }
+            } else {
+                pacman.px += direction.x * pacman.speed;
+                pacman.py += direction.y * pacman.speed;
+                // 경계 클램핑
+                pacman.px = Math.max(0, Math.min(pacman.px, (COLS - 1) * TILE));
+                pacman.py = Math.max(0, Math.min(pacman.py, (ROWS - 1) * TILE));
+            }
+        }
+
+        // 입 애니메이션
+        function animateMouth() {
+            mouthAngle += 0.04 * mouthDir;
+            if (mouthAngle >= 0.35) mouthDir = -1;
+            if (mouthAngle <= 0.02) mouthDir = 1;
+        }
+
+        // 그리기
+        function draw() {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 그리드 점선 (배경 느낌)
+            ctx.strokeStyle = '#111';
+            ctx.lineWidth = 0.5;
+            for (let c = 0; c <= COLS; c++) {
+                ctx.beginPath();
+                ctx.moveTo(c * TILE, 0);
+                ctx.lineTo(c * TILE, ROWS * TILE);
+                ctx.stroke();
+            }
+            for (let r = 0; r <= ROWS; r++) {
+                ctx.beginPath();
+                ctx.moveTo(0, r * TILE);
+                ctx.lineTo(COLS * TILE, r * TILE);
+                ctx.stroke();
+            }
+
+            // 도트 그리기
+            dots.forEach(d => {
+                if (!d.eaten) {
+                    ctx.fillStyle = '#FFD700';
+                    ctx.beginPath();
+                    ctx.arc(
+                        d.x * TILE + TILE / 2,
+                        d.y * TILE + TILE / 2,
+                        4, 0, Math.PI * 2
+                    );
+                    ctx.fill();
+                }
+            });
+
+            // 팩맨 그리기
+            const px = pacman.px + TILE / 2;
+            const py = pacman.py + TILE / 2;
+            const radius = TILE / 2 - 4;
+
+            // 방향에 따른 회전 각도
+            let angle = 0;
+            if (direction.x === 1) angle = 0;
+            else if (direction.x === -1) angle = Math.PI;
+            else if (direction.y === -1) angle = Math.PI * 1.5;
+            else if (direction.y === 1) angle = Math.PI * 0.5;
+
+            ctx.fillStyle = '#FFD700';
+            ctx.beginPath();
+            ctx.moveTo(px, py);
+            ctx.arc(px, py, radius,
+                angle + mouthAngle * Math.PI,
+                angle + (2 - mouthAngle) * Math.PI
+            );
+            ctx.closePath();
+            ctx.fill();
+
+            // 눈
+            const eyeAngle = angle - Math.PI / 4;
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(
+                px + Math.cos(eyeAngle) * radius * 0.5,
+                py + Math.sin(eyeAngle) * radius * 0.5,
+                3, 0, Math.PI * 2
+            );
+            ctx.fill();
+        }
+
+        function gameLoop() {
+            movePacman();
+            eatDots();
+            animateMouth();
+            draw();
+
+            if (allEaten()) {
+                messageEl.textContent = '🎉 클리어! 모든 도트를 먹었어요!';
+                restartBtn.style.display = 'inline-block';
+                return;
+            }
+
+            animFrame = requestAnimationFrame(gameLoop);
+        }
+
+        // 키보드 입력
+        document.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'ArrowRight': nextDirection = { x: 1,  y: 0  }; break;
+                case 'ArrowLeft':  nextDirection = { x: -1, y: 0  }; break;
+                case 'ArrowDown':  nextDirection = { x: 0,  y: 1  }; break;
+                case 'ArrowUp':    nextDirection = { x: 0,  y: -1 }; break;
+            }
+            e.preventDefault(); // 페이지 스크롤 방지
+        });
+
+        restartBtn.addEventListener('click', initGame);
+
+        initGame();
+    </script>
+</body>
+</html>

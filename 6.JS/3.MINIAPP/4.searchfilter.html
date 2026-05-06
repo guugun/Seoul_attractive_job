@@ -65,12 +65,23 @@
             }
             */
 
-            Array.from(items).forEach((item) => {
+            Array.from(items).forEach((item) => { //items는 HTMLCollection이므로, forEach를 바로 사용할 수 없어서 Array.from()을 통해서 배열로 변환
+                // Array.from(items).forEach((item)  부분을 풀어서 쓰면, 
+                // const itemArray = Array.from(items);
+                // itemArray.forEach((item) => { ... }) 와 같은 형태가 됨
+                //그래서 item은 items의 각 요소를 순회하면서 item.textContent로 텍스트를 가져와서,
+                //  소문자로 변환한 후에 filter와 비교해서 포함 여부를 확인하는 로직이 됨
                 const text = item.textContent;
-                if (text.toLowerCase().includes(filter)) {
-                    item.style.display = '';
+                if (text.toLowerCase().includes(filter)) { //이부분을 풀어서쓰면,
+                    // const lowerText = text.toLowerCase();
+                    // const lowerFilter = filter.toLowerCase();
+                    // if (lowerText.includes(lowerFilter)) { ... } 와 같은 형태가 됨
+
+                    //한글로 해석하자면, filter에 담겨있는 검색어가 item의 텍스트에 포함되어 있는지를 확인하는 로직이 됨
+                    
+                    item.style.display = '';// 포함되어 있으면, display 속성을 ''로 설정해서 보이도록 함
                 } else {
-                    item.style.display = 'none';
+                    item.style.display = 'none';// 포함되어 있지 않으면, display 속성을 'none'으로 설정해서 숨김 처리  
                 }
             })
         })

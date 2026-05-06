@@ -18,18 +18,18 @@
         const voiceSelect = document.getElementById('voiceSelect');
 
         // Web Speech API를 사용해서...
-        if ('speechSynthesis' in window) {
-            const updateVoices = () => {
-                const voices = window.speechSynthesis.getVoices();
-                console.log('사용 가능한 목소리 목록: ', voices);
+        if ('speechSynthesis' in window) { // 브라우저야, 너 음성 기능 있어? 라고 물어봄
+            const updateVoices = () => { // "음성목록 갱신"이라는 함수 만들기 (아직 실행 X)
+                const voices = window.speechSynthesis.getVoices(); // 사용 가능한 목소리 다 가져와서 voices에 담음
+                console.log('사용 가능한 목소리 목록: ', voices); // 콘솔(F12)에 목록 찍어보기 (개발자 확인용)
 
-                voiceSelect.innerHTML = ''; // 현재 목록 초기화
+                voiceSelect.innerHTML = ''; // 드롭다운 안 비우기 (중복 방지)
 
-                voices.forEach((voice, index) => {
-                    const option = document.createElement('option');
-                    option.value = index;
-                    option.text = `${voice.name} (${voice.lang})`;
-                    voiceSelect.add(option);
+                voices.forEach((voice, index) => { // 목소리 하나씩 꺼내서 반복
+                    const option = document.createElement('option'); // <option> 태그 새로 만들기
+                    option.value = index; // option에 번호 붙이기 (0, 1, 2...)
+                    option.text = `${voice.name} (${voice.lang})`; // option에 보일 글자 정하기 (예: "Heami (ko-KR)")
+                    voiceSelect.add(option); // 만든 option을 드롭다운에 끼워넣기
                 });
             };
 
@@ -42,13 +42,13 @@
             alert('이 브라우저는 음성 기능을 지원하지 않습니다.');
         }
 
-        const speakText = () => {
-            const selectedVoiceIndex = voiceSelect.value;
-            const selectedVoice = window.speechSynthesis.getVoices()[selectedVoiceIndex];
-            const text = document.getElementById('text').value;
-            const speech = new SpeechSynthesisUtterance(text);
-            speech.voice = selectedVoice;
-            speechSynthesis.speak(speech);
+        const speakText = () => { // "읽어주기"라는 함수 만들기
+            const selectedVoiceIndex = voiceSelect.value; // 드롭다운에서 사용자가 고른 번호 가져오기 (예: "2")
+            const selectedVoice = window.speechSynthesis.getVoices()[selectedVoiceIndex]; // 목소리 목록에서 그 번호의 목소리 꺼내기
+            const text = document.getElementById('text').value; // textarea에 입력된 글자 가져오기
+            const speech = new SpeechSynthesisUtterance(text); // 그 글자로 "말할 거리" 만들기
+            speech.voice = selectedVoice; // 말할 거리에 "이 목소리로 읽어줘" 지정
+            speechSynthesis.speak(speech); // 실제로 소리내서 읽기
         }
 
         const speakButton = document.getElementById('speakButton');

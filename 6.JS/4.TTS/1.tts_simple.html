@@ -23,15 +23,3 @@
 </html>
 
 
-<textarea id="text" rows="4" cols="50"> </textarea> 
-<br>
-<button onclick="speak()">읽어주기  </button>
-
-<script>
-    function speak()
-    {
-        const text = document.getElementById('text').value;
-        const speech = new SpeechSynthesis.speak(speech);
-
-    }
-</script>

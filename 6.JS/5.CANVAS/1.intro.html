@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="400" height="300"></canvas>
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const context = canvas.getContext('2d');
+
+        // 1. 사각형 그리기
+        context.fillStyle = '#FF0000'; // 빨강
+        context.fillRect(50, 50, 200, 100); // x, y, width, height
+        
+        context.fillStyle = '#0000FF'; // 파랑
+        context.fillRect(50, 150, 200, 100); // x, y, width, height
+
+        // 2. 라인 그리기
+        context.strokeStyle = '#00FF00'; // 초록색
+        context.lineWidth = 5; // 선 굵기
+        context.beginPath();
+        context.moveTo(150,50);  // 시점점 위치
+        context.lineTo(250,150);  // 갈곳 위치
+        context.lineTo(150,250);  // 갈곳 위치
+        context.lineTo(50,150);  // 갈곳 위치
+        context.lineTo(150,50);  // 갈곳 위치
+        context.stroke(); // 실제로 그리기
+        context.closePath();
+        
+        // 3. 원 그리기
+        context.fillStyle = '#FFFF00';
+        context.beginPath();
+        context.arc(350, 50, 30, 0, 2*Math.PI); // x, y, 반지름(radius), 출발각도(0), 끝각도(360)
+        context.fill(); // 채우기
+        context.closePath();
+
+        context.fillStyle = '#000000';
+        context.beginPath();
+        context.arc(350, 150, 30, 1/2 * Math.PI, 3/2 * Math.PI); // x, y, 반지름(radius), 출발각도(0), 끝각도(360)
+        context.fill(); // 채우기
+        context.closePath();
+
+        // 0 라디언은 오른쪽에서 출발하고
+        // 1/2 파이 라디언은 90도
+        // 파이 라이던은 180도
+        // 3/2 파이 라디언은 270도
+        // 2파이 라디언은 360도
+
+
+    </script>
+</body>
+</html>

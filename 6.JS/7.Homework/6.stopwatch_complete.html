@@ -102,8 +102,12 @@
 
         function updateTimer() {
             updatedTime = new Date().getTime();
-            difference = updatedTime - startTime; // 경과 시간 계산
+            difference = updatedTime - startTime; // 경과 시간 계산. 시간단위는 ms (밀리세컨드)
 
+            //주의: 현재 hours를 표시하는 기능은 기존에 쌤한테 받은코드엔 없었음.
+            //그래서 61분이 되면 01:00.00 이런식으로 표시됨. 
+            // 이걸 고치려면, hours 계산하는 코드도 추가해야함. 
+            // 근데 아직 지시사항에 없었어서 아직 안넣음
             let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)); // 흘러간 ms 에서 분 계산
             let seconds = Math.floor((difference % (1000 * 60)) / (1000)); // 거기에서 초 계산
             let milliseconds = Math.floor((difference % 1000) / 10); // 나머지 ms 계산
@@ -115,9 +119,27 @@
                 (milliseconds < 10 ? '0' + milliseconds : milliseconds);
         }
 
+        function stopTimer() {
+            if (!running) return;
+
+            running = false;
+            clearInterval(timerId); //반복중지
+
+            //let differerence = 
+        }
+
+        function resetTimer(){
+            clearInterval(timerId); //반복중지
+            running = false;
+            difference = 0; //사실상 없어도 동작은 같음
+            // 이걸 굳이 쓴 이유는 "리셋하면 모든 상태를 초기화한다" 는 코드 가독성/명확성 때문
+            // 실용적 목적보다는 코드를 읽는 사람이 보기 좋으라고 쓰는 방어적 스타일임.
+            display.textContent = '00:00.00'; // 초기화 버튼을 눌렀을 때, 화면에 표시되는 시간도 초기화해주는 코드. 이걸 안쓰면, 리셋버튼을 눌러도 화면에는 마지막에 멈춘 시간이 계속 표시됨.
+
+        }
         startButton.addEventListener('click', startTimer);
-        // stopButton.addEventListener('click', 클릭시호출할함수);
-        // resetButton.addEventListener('click', 클릭시호출할함수);
+        stopButton.addEventListener('click', stopTimer);
+        resetButton.addEventListener('click', resetTimer);
     </script>
 </body>
 </html>

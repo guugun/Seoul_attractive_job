@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .done{
+            text-decoration: line-through;
+            color:gray;
+        }
+        #todo-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+        }
+        .delete-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .delete-btn:hover {
+            opacity: 0.6;
+        }
+
+      .container {
+        border: 1px solid black;
+        padding: 20px;
+        background: beige;
+        padding-right: 500px;
+        width : 400px;
+      }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>오늘 할일 (Todo 리스트)</h1>
+        <input type="text" id="new-todo" placeholder="할일 입력">
+        <button id="add-todo">추가</button>
+        
+        <ul id="todo-list"><!-- 할일들이 표시될곳--></ul>
+
+    </div>
+    <script>
+       const todolist= document.getElementById('todo-list');
+        const addButton = document.getElementById('add-todo');
+        const newTodoInput = document.getElementById('new-todo');
+        //const deleteButton = document.getElementById('delete-todo');
+        // 1. 버튼이 클릭되면...
+        // 2. 거기 값 읽어와서.. ul아래 li 추가하기
+
+        // 새로운 할일 추가기능
+        addButton.addEventListener('click', ()=> // 추가버튼이 클릭되면
+        {
+            if(newTodoInput.value.trim() == '') return; // 입력값의 앞뒤 공백 제거 및 입력값이 빈칸이면 종료
+            
+            const new_li = document.createElement("li"); // li 요소를 새로 만들어서
+
+            // 체크박스 추가
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            new_li.appendChild(checkbox);
+
+            // 텍스트 span으로 추가
+            const span = document.createElement('span');
+            span.textContent = newTodoInput.value;
+            new_li.appendChild(span);
+
+            todolist.appendChild(new_li); // 그 li 요소를 todolist(ul)의 자식으로 추가해준다.
+        
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '🗑️'; // 휴지통 아이콘
+            deleteBtn.classList.add('delete-btn');
+            new_li.appendChild(deleteBtn); // 그 delete 버튼을 li의 자식으로 추가해
+
+            newTodoInput.value = ''; // 입력창 클리어하기
+            
+            //완료기능 - 체크박스 클릭 시 done 토글
+            checkbox.addEventListener('change', () => {
+                new_li.classList.toggle('done', checkbox.checked);
+            });
+
+            //삭제기능
+            //const deleteBtn = document.querySelector
+            deleteBtn.addEventListener('click', ()=>
+            {
+                new_li.remove();
+            })
+
+        })
+
+        // 기능개선: 엔터를 통한 버튼 클릭하기 추가
+        newTodoInput.addEventListener('keydown', (ev)=>
+        {
+         if(ev.key ==='Enter') addButton.click(); // 버튼을 클릭한 액션을 대신 수행   
+        })
+
+    </script>
+</body>
+</html>
