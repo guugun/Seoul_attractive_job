@@ -1,14 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 
 app = Flask(__name__)
-
-users = [
-    {"id": 1, "name": "홍길동", "email": "hong@example.com"},
-    {"id": 2, "name": "김철수", "email": "kim@example.com"},
-    {"id": 3, "name": "이영희", "email": "lee@example.com"},
-    {"id": 4, "name": "박민수", "email": "park@example.com"},
-    {"id": 5, "name": "최지훈", "email": "choi@example.com"},
-]
 
 @app.route('/')
 def home():
@@ -16,72 +8,8 @@ def home():
 
 @app.route('/user')
 def user():
-    return send_from_
-
-
-
-
-
+    return send_from_directory('static', 'user.html')
 
 if __name__ == '__main__':
+    # app.run(port=5000, debug=True)
     app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
