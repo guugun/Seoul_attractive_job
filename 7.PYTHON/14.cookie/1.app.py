@@ -1,17 +1,16 @@
 from flask import Flask, make_response, request
-#이파일 쌤껄로덮어씌우기
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/set-cookie")
 def set_cookie():
     resp = make_response("Cookie has been set!!")
-    resp.set_cookie("my-data", "spc2026")
+    resp.set_cookie("my-edu", "spc2026")
     return resp
 
-@app.route("/user")
+@app.route("/get-cookie")
 def get_cookie():
-    cookie = request.cookies.get('my-data')
+    cookie = request.cookies.get('my-edu')
     print(cookie)
 
     return f"안녕, {cookie} 야"
