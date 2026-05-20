@@ -38,8 +38,17 @@ if __name__ == '__main__':
 
         if not User.query.first():
             print('사용자 초기화')
-            
 
+
+@app.route('/delete_user/<int:id>')
+def delete_user(id):
+    user = db.session.get(User, id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        flash(f"사용자 (id: {id}) 가 삭제되었습니다.")
+
+    return redirect(url_for('index'))
 
 
 

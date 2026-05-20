@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<<<<<<< HEAD
     <link href ="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -63,16 +62,5 @@
 
 
     
-=======
-</head>
-<body>
-    <h1>상품 목록</h1>
-    <ul>
-        {% for item in items %}
-        <li>{{ item.name }} (가격: {{ item.price }}원) <a href="{{ url_for('add_to_cart', item_id=item.id) }}">카트에추가</a> </li>
-        {% endfor %}
-    </ul>
-    <a href="">장바구니 보기</a>
->>>>>>> 179fe6b816f52c5dc07975aafe8653c500969eac
 </body>
 </html>
