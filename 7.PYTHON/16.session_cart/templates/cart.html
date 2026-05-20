@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<<<<<<< HEAD
     <link href ="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -53,5 +54,28 @@
 <p>전체 가격: {{ total_price }}원</p>
 
     
+=======
+</head>
+<body>
+    <h1>장바구니</h1>
+    <table border="1">
+        <tr>
+            <th>상품 이름</th>
+            <th>수량</th>
+            <th>가격</th>
+        </tr>
+        <!-- 동적으로 아래 tr들에 장바구니에 담긴 내용 출력하기 -->
+        {% for item_id, item_info in cart_items.items() %}
+        <tr>
+            <!-- 상품담긴 정보를 출력 -->
+            <td>{{ item_info.name }}</td>
+            <td>{{ item_info.quantity }}</td>
+            <td>{{ item_info.price * item_info.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>전체 가격: {{ total_price }}원</p>
+    <a href="{{ url_for('index') }}">상품 목록으로 돌아가기</a>
+>>>>>>> 179fe6b816f52c5dc07975aafe8653c500969eac
 </body>
 </html>

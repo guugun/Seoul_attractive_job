@@ -71,6 +71,7 @@ def profile():
     
     return render_template('profile.html', user=user)
 
+<<<<<<< HEAD
 
 
 @app.route('/login', methods=['GET','POST'])
@@ -95,9 +96,16 @@ def login():
 
 
 @app.route('/logout', methods=['GET','POST'])
+=======
+@app.route('/logout')
+>>>>>>> 179fe6b816f52c5dc07975aafe8653c500969eac
 def logout():
     session.pop('user', None) # 키가 없을때, 즉 로그아웃 두번 했을때 오류 방지용
     return redirect(url_for('home'))
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 179fe6b816f52c5dc07975aafe8653c500969eac
 if __name__ == "__main__":
     app.run(debug=True)
