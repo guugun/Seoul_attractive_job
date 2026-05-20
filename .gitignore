@@ -10,3 +10,5 @@ uploads/
 
 # 세션 임시 정보
 .sessions/
+echo "*.db" 
+echo "*.csv" 
