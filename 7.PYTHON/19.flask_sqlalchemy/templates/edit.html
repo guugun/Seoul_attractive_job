@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로필 수정</title>
+</head>
+<body>
+    <h1>프로필 수정</h1>
+
+    <form action="{{ url_for('edit_user', id=user.id) }}" method="POST">
+        <label>이름:
+            <input type="text" name="name" value="{{ user.name }}">
+        </label><br>
+        <label>나이:
+            <input type="number" name="age" value="{{ user.age }}">
+        </label><br><br>
+        <button type="submit">수정완료</button>
+    </form>
+
+    <a href="{{ url_for('profile', id=user.id) }}">취소 (프로필로)</a> |
+    <a href="{{ url_for('index') }}">목록으로</a>
+</body>
+</html>

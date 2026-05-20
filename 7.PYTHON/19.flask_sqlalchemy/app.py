@@ -35,6 +35,35 @@ def add_user():
     db.session.commit()
     return redirect(url_for('index'))
 
+@app.route('/profile/<int:id>')
+def profile(id):
+    user = db.session.get(User, id)
+    if not user:
+        flash(f'사용자(id: {id})를 찾을 수 없습니다.')
+        return redirect(url_for('index'))
+    return render_template('profile.html', user=user)
+
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit_user(id):
+    user = db.session.get(User, id)
+    if not user:
+        flash(f'사용자(id: {id})를 찾을 수 없습니다.')
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        name = request.form.get('name')
+        age = request.form.get('age')
+        if not name or not age:
+            flash('이름과 나이를 모두 입력해야 합니다.')
+            return redirect(url_for('edit_user', id=id))
+        user.name = name
+        user.age = age
+        db.session.commit()
+        flash(f'{name}님의 정보가 수정되었습니다.')
+        return redirect(url_for('index'))
+
+    return render_template('edit.html', user=user)
+
 @app.route('/delete_user/<int:id>')
 def delete_user(id):
     user = db.session.get(User, id)
