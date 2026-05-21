@@ -7,58 +7,21 @@ load_dotenv()
 client_id = os.getenv("NAVER_CLIENT_ID")
 client_secret = os.getenv("NAVER_CLIENT_SECRET")
 
-text = "파이썬 웹개발"
-url = "https://openapi.naver.com/v1/search/blog.json" 
+text = "생성형 AI"
+# url = "https://openapi.naver.com/v1/search/blog.json"
+url = "https://openapi.naver.com/v1/search/news.json"
 
 headers = {
     "X-Naver-Client-Id": client_id,
     "X-Naver-Client-Secret": client_secret
-
 }
 
 params = {
     "query": text
 }
+
 response = requests.get(url, headers=headers, params=params)
-print(response)
+# print(response)
+data =response.json()
 
-data = response.json()
 print(data)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
