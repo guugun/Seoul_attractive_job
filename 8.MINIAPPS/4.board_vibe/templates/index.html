@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Board Vibe - A modern, beautiful bulletin board application">
+    <title>Board Vibe — 게시판</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Animated background blobs -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">✦</span>
+                <h1>Board <span class="accent">Vibe</span></h1>
+            </div>
+            <p class="subtitle">자유롭게 글을 남겨보세요</p>
+        </header>
+
+        <!-- Post Form -->
+        <section class="form-section">
+            <form action="{{ url_for('add_post') }}" method="POST" class="post-form" id="post-form">
+                <div class="form-group">
+                    <label for="title-input">제목</label>
+                    <input 
+                        type="text" 
+                        id="title-input" 
+                        name="title" 
+                        placeholder="제목을 입력하세요..." 
+                        required 
+                        maxlength="100"
+                        autocomplete="off"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="message-input">내용</label>
+                    <textarea 
+                        id="message-input" 
+                        name="message" 
+                        placeholder="내용을 작성해주세요..." 
+                        required 
+                        rows="4"
+                        maxlength="2000"
+                    ></textarea>
+                </div>
+                <button type="submit" id="submit-btn" class="submit-btn">
+                    <span class="btn-text">게시하기</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </form>
+        </section>
+
+        <!-- Divider -->
+        <div class="divider">
+            <span class="divider-label">게시글 목록</span>
+        </div>
+
+        <!-- Posts Grid -->
+        <section class="posts-section" id="posts-section">
+            {% for post in posts %}
+            <article class="card" style="animation-delay: {{ loop.index0 * 0.06 }}s">
+                <div class="card-header">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <form action="{{ url_for('delete_post', pid=post.id) }}" method="POST" class="delete-form">
+                        <button type="submit" class="delete-btn" title="삭제" aria-label="게시글 삭제">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+                <p class="card-message">{{ post.message }}</p>
+                <div class="card-footer">
+                    <time class="card-time">{{ post.created_at }}</time>
+                </div>
+            </article>
+            {% else %}
+            <div class="empty-state" id="empty-state">
+                <div class="empty-icon">📝</div>
+                <p class="empty-text">아직 게시글이 없습니다</p>
+                <p class="empty-sub">첫 번째 글을 작성해보세요!</p>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+
+    <script>
+        // Subtle form interaction enhancements
+        const form = document.getElementById('post-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', () => {
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+        });
+
+        // Textarea auto-resize
+        const textarea = document.getElementById('message-input');
+        textarea.addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 300) + 'px';
+        });
+
+        // Card entrance observer for scroll-triggered animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card').forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>

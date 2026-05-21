@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Search Vibe 🎵</title>
+  <meta name="description" content="음악을 검색하고 댓글과 해시태그를 통해 소통하는 음악 SNS 플랫폼">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <!-- Logo -->
+      <div class="navbar-logo" onclick="window.location.hash = '#/'">
+        <span class="logo-icon">🎵</span> Music Vibe
+      </div>
+
+      <!-- Center Search Bar (for larger screens) -->
+      <form id="nav-search-form" class="navbar-search">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="nav-search-input" placeholder="음악 제목 검색..." autocomplete="off">
+      </form>
+
+      <!-- Desktop Links -->
+      <div class="navbar-links">
+        <a href="#/" class="active">홈</a>
+        <a href="#/search">검색</a>
+        <a href="#/admin" class="admin-only hidden">관리자</a>
+      </div>
+
+      <!-- Actions (Bell, Theme, User) -->
+      <div class="navbar-actions">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="theme-toggle" title="테마 변경">☀️</button>
+
+        <!-- Notification Bell (Unread has class 'has-unread') -->
+        <div style="position: relative;">
+          <button id="notification-bell" class="notification-bell" title="알림">
+            🔔
+          </button>
+          
+          <!-- Dropdown -->
+          <div id="notification-dropdown" class="notification-dropdown hidden">
+            <div class="notification-dropdown-header">
+              <h4>실시간 알림</h4>
+              <button id="notif-read-all-btn">모두 읽음</button>
+            </div>
+            <div id="notification-list" class="notification-list">
+              <div class="notification-empty">알림이 없습니다.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Menu (Logged In vs Out) -->
+        <div class="user-menu">
+          <!-- Logged Out Button -->
+          <button class="login-btn logged-out" onclick="window.auth.showAuthModal('login')">로그인</button>
+          
+          <!-- Logged In Button (Avatar) -->
+          <button id="user-avatar-btn" class="user-avatar-btn logged-in hidden">U</button>
+          
+          <!-- Dropdown menu -->
+          <div id="user-dropdown" class="user-dropdown hidden">
+            <a href="#/profile">👤 내 프로필</a>
+            <div class="admin-only hidden">
+              <a href="#/admin">⚙️ 관리자 모드</a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <button class="logout-btn" onclick="window.auth.logout()">로그아웃</button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="hamburger-btn" class="hamburger" aria-label="메뉴 열기">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Side Panel Menu -->
+  <div id="mobile-nav" class="mobile-nav">
+    <a href="#/">홈</a>
+    <a href="#/search">검색</a>
+    <a href="#/admin" class="admin-only hidden">관리자 모드</a>
+    <div class="dropdown-divider"></div>
+    <a href="#/profile" class="logged-in hidden">내 프로필</a>
+    <button class="logout-btn logged-in hidden" onclick="window.auth.logout()">로그아웃</button>
+    <button class="login-btn logged-out" onclick="window.auth.showAuthModal('login')" style="margin-top: 1rem; width: 100%; text-align: center;">로그인</button>
+  </div>
+
+  <!-- Dynamic Content Area -->
+  <main id="app-content">
+    <!-- Rendered SPA content goes here -->
+  </main>
+
+  <!-- Auth modal overlay -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="auth-card card">
+      <button id="close-auth-btn" class="close-btn">&times;</button>
+      
+      <div class="auth-tabs">
+        <button id="tab-login-btn" class="auth-tab-btn active" onclick="window.auth.switchTab('login')">로그인</button>
+        <button id="tab-register-btn" class="auth-tab-btn" onclick="window.auth.switchTab('register')">회원가입</button>
+      </div>
+
+      <!-- Login container -->
+      <div id="login-form-container" class="form-container">
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-username">아이디</label>
+            <input type="text" id="login-username" class="form-control" placeholder="아이디 입력" required autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label for="login-password">비밀번호</label>
+            <input type="password" id="login-password" class="form-control" placeholder="비밀번호 입력" required autocomplete="current-password">
+          </div>
+          <div id="login-error" class="error-message"></div>
+          <button type="submit" class="btn btn-primary w-100 mt-2">로그인</button>
+        </form>
+      </div>
+
+      <!-- Register container -->
+      <div id="register-form-container" class="form-container hidden">
+        <form id="register-form">
+          <div class="form-group">
+            <label for="register-username">아이디</label>
+            <input type="text" id="register-username" class="form-control" placeholder="3자 이상" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="register-email">이메일</label>
+            <input type="email" id="register-email" class="form-control" placeholder="이메일 주소" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="register-display-name">닉네임</label>
+            <input type="text" id="register-display-name" class="form-control" placeholder="프로필 닉네임" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="register-password">비밀번호</label>
+            <input type="password" id="register-password" class="form-control" placeholder="6자 이상" required autocomplete="new-password">
+          </div>
+          <div class="form-group">
+            <label for="register-password-confirm">비밀번호 확인</label>
+            <input type="password" id="register-password-confirm" class="form-control" placeholder="비밀번호 재입력" required autocomplete="new-password">
+          </div>
+          <div id="register-error" class="error-message"></div>
+          <button type="submit" class="btn btn-primary w-100 mt-2">회원가입</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Overlay Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- JS Modules -->
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/notifications.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/music-detail.js"></script>
+  <script src="/js/profile.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
