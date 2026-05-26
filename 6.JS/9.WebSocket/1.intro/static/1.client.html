@@ -4,53 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-
-
 </head>
 <body>
-    <h1>WebSocket 테스트</h1>
-    <input type="text" id="msg" placeholder="메시지를 입력">
+    <h1>웹소켓 테스트</h1>
+    <input type="text" id="msg" placeholder="메시지 입력">
     <button id="send">전송</button>
-
     <script>
-        const socket = new WebSocket('ws://localhost:8000');
+        const socket = new WebSocket("ws://localhost:8000");
         socket.onopen = () => {
             console.log("서버와 연결됨.")
-        } // 연결이 열렸을 때 호출할 함수
+        }
 
         socket.onmessage = (event) => {
-            console.log("서버로부터 메시지 수신:", event.data);
-        } // 서버로부터 메시지를 수신했을 때 호출할 함수
+            console.log("서버 메시지: ", event.data);
+        }
 
         document.getElementById('send').addEventListener('click', () => {
-            const msg = document.getElementById('msg').value;
+            const msg = document.getElementById("msg").value;
             socket.send(msg);
-            
-        }) // 버튼 클릭 시 입력된 메시지를 서버로 전송
+        })
     </script>
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

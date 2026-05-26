@@ -1,29 +1,30 @@
-
 import os
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()  # 내가 읽어갈 경로를 지정할수도 있음
 
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+openai_api_key = os.getenv('OPENAI_API_KEY')
 
-user_input = input("대한민국의 수도는 어디야? ")
+user_input = "대한민국의 수도는 어디야?"
+
 response = requests.post(
-    'https://api.openai.com/v1/chat/completions',
-    'https://api.openai.com/v1/chat/responses',
-
-    headers={
+    # 'https://api.openai.com/v1/chat/completions'
+    'https://api.openai.com/v1/responses',
+    headers= {
         'Content-Type': 'application/json',
-        'Authorization': f'Bearer {OPENAI_API_KEY}'
+        'Authorization': f'Bearer {openai_api_key}'
     },
-    json={'model': 'gpt-4o-mini',
-          'input': user_input}
+    json={
+        
+        'model': 'gpt-4o-mini',
+        'input': user_input,
+    }
 )
 
 data = response.json()
 print(data)
-print('-'*30)
+print('-' * 30)
 answer = data['output'][0]['content'][0]['text']
-print("챗봇 응답:", answer)
-print('응답ID:', data['id'])
-
+print('응답: ', answer)
+print('응답ID: ', data['id'])

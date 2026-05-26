@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input text="text" id="prompt" placeholder="질문을 입력하세요">
+    <button id="sendBtn">전송</button>
+    <div id="result"></div>
+
+    <script>
+        // async, await 바꿔보시오...
+        document.getElementById('sendBtn').addEventListener('click', async () => {
+            const resp = await fetch("https://api.openai.com/v1/models", {
+                headers: {
+                    "Authorization": "Bearer PUT_YOUR_API_KEY_HERE" , // 여기에실제로우리키를넣으면동작하는코드임.단절대로이키를커밋하면안됨.키는백엔드를통해서관리되어야함.
+                }
+            });
+
+            const data = await resp.json();
+            console.log(data);
+            document.getElementById('result').innerHTML = `
+                ${JSON.stringify(data)}
+            `;
+        })
+    </script>
+</body>
+</html>
