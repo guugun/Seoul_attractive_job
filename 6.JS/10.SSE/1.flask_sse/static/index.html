@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <div id="reply"></div>
+    <h1>WebSocket 테스트</h1>
+
+    <input type="text" id="msg" placeholder="메시지를 입력">
+    <button id="send">전송</button>
+
+
+
+
+
+    <script>
+        //메시지 받는 API
+        const source = new EventSource('/stream'); //서버에서 이벤트를 수신하기 위한 EventSource 객체 생성
+        source.onopen = () =>{
+            console.log("서버와 연결됨 - SSE리슨 시작");
+        }
+
+        source.onmessage = (event) => {
+            console.log("서버 메시지: ", event.data);
+        } //서버로부터 메시지를 수신했을 때 호출할 함수
+
+
+
+        //메시지 보내는 API
+    
+        document.getElementById('send').addEventListener('click', () => {
+            const msg = document.getElementById('msg').value;
+            fetch('/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: "message=" + encodeURIComponent(msg) //폼의 기본 key-value는 key=값 형태로 전달됨.
+            })
+        }) // 버튼 클릭 시 입력된 메시지를 서버로 POST 요청
+    </script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
