@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ grade }}학년 - {{ curriculum_title }}</h2>
+
+<div id="chatbot">
+    <div id="chatLog"><!--우리의 대화 히스토리는 여기에 추가됨--></div>
+    <form id="chatForm">
+        <input type="text" id="userInput" name="userInput" placeholder="대화를 입력하세요">
+        <button type="submit">전송</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('chatForm').addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const userInput = document.getElementById('userInput').value;
+        const chatLog = document.getElementById('chatLog');
+
+        chatLog.innerHTML += `<div>질문: ${userInput}</div>`;
+
+        // 백엔드에 요청
+        // const response = await fetch('/api/chat', {
+        const response = await fetch(window.location.href, {
+            method: 'POST',
+            headers: {
+                // 'Content-Type': 'application/json'
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({  // FormData 전송을 편하게 하기 위한 함수
+                'user_input': userInput
+            })
+        });
+
+        const data = await response.json();
+        console.log(data);
+        chatLog.innerHTML += `<div>응답: ${data.response}</div>`;
+        chatLog.scrollTop = chatLog.scrollHeight;
+    })
+</script>
+{% endblock %}
