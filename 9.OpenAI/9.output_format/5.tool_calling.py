@@ -33,7 +33,8 @@ response = client.chat.completions.create(
     model='gpt-4o-mini',
     messages=[
         {'role':'system', 'content':'질문에 대해 JSON으로만 답변하시오.'},
-        {'role':'user', 'content':'서울의 날씨를 알려주시오.'},
+        # {'role':'user', 'content':'서울의 날씨를 알려주시오.'},
+        {'role':'user', 'content':'파이썬이란 무엇인가요.'},
     ],
     tools=tools,
 )

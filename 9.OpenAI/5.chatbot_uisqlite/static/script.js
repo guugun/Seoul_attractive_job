@@ -1,3 +1,4 @@
+// 일단 DOM이 로딩 된 다음에...
 document.addEventListener('DOMContentLoaded', () => {
     const chatInput = document.getElementById('user-input');
     const formInput = document.getElementById('user-input-form');
@@ -69,10 +70,4 @@ document.addEventListener('DOMContentLoaded', () => {
         // 메시지가 쌓였을 때 자동으로 스크롤을 맨 아래로 내려줌
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }
-
 });
-
-async function clearHistory(){
-    await fetch('api/chat/clear', {method: 'DELETE'});
-    document.querySelector('#result').innerHTML = '';
-}

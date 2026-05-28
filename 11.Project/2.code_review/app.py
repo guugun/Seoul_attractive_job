@@ -1,4 +1,5 @@
 import os
+import requests
 from dotenv import load_dotenv
 
 from flask import Flask, send_from_directory, jsonify, request
@@ -12,6 +13,22 @@ app = Flask(__name__, static_folder="public")
 @app.route("/")
 def index():
     return send_from_directory("public", "index.html")
+
+@app.route('/api/fetch-code', methods=['POST'])
+def fetch_code():
+    data = request.get_json()
+    github_url = data.get('url', '')
+
+    # GitHub URL → Raw URL 변환
+    raw_url = github_url.replace('github.com', 'raw.githubusercontent.com')
+    raw_url = raw_url.replace('/blob/', '/')
+
+    # Raw URL로 소스코드 가져오기
+    res = requests.get(raw_url)
+    if res.status_code == 200:
+        return jsonify({'code': res.text})
+    else:
+        return jsonify({'error': '코드를 가져오지 못했습니다.'}), 400
 
 @app.route('/api/codecheck', methods=['POST'])
 def code_check():

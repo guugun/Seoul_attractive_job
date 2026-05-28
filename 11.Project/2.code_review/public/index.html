@@ -7,6 +7,12 @@
 </head>
 <body>
     <h1>코드 취약점 분석기</h1>
+
+    <div id="urlSection">
+        <input type="text" id="githubUrl" placeholder="GitHub URL 붙여넣기 (예: https://github.com/user/repo/blob/main/file.py)" style="width:80%">
+        <button id="fetchBtn">코드 가져오기</button>
+    </div><br>
+
     <form id="codeForm">
         <textarea id="code" name="code" rows="15" cols="80" placeholder="소스코드를 입력하세요"></textarea><br>
         <button type="submit">분석시작</button>
@@ -14,6 +20,24 @@
     <h2>분석 결과</h2>
     <pre id="result"><!--결과가 출력될곳--></pre>
     <script>
+        // GitHub URL → 소스코드 자동 가져오기
+        document.getElementById('fetchBtn').addEventListener('click', async () => {
+            const url = document.getElementById('githubUrl').value;
+            if (!url) return alert('GitHub URL을 입력하세요.');
+
+            const res = await fetch('/api/fetch-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url })
+            });
+            const data = await res.json();
+            if (data.code) {
+                document.getElementById('code').value = data.code;
+            } else {
+                alert(data.error || '코드를 가져오지 못했습니다.');
+            }
+        });
+
         document.getElementById('codeForm').addEventListener('submit', async (ev) => {
             ev.preventDefault();
             const code = document.getElementById('code').value;
