@@ -34,6 +34,9 @@ print(f"가장 가까운 {len(results)} 개의 문서:")
 for i, doc in enumerate(results, 1):
     print(f" {i}. {doc.page_content}")
 
+
+##################################################################
+
 # 검색 결과 합치기
 context = "\n".join(doc.page_content for doc in results)
 
