@@ -14,3 +14,5 @@ uploads/
 # 대용량 파일
 *.db
 *.csv
+*.sqlite
+*.sqlite3

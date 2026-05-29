@@ -4,9 +4,17 @@ from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
-from langchain_community.chat_message_histories import FileChatMessageHistory
+
+from langchain_community.chat_message_histories import SQLChatMessageHistory
+from sqlalchemy import create_engine
 
 load_dotenv()
+
+DB_URL = "sqlite:///chat_history.db"
+SESSION_ID = "default"   # 나중에 사용자별로 이걸 바꿔주면됨
+
+engine = create_engine(DB_URL)
+history = SQLChatMessageHistory(session_id=SESSION_ID, connection=engine)
 
 llm = ChatOpenAI(model="gpt-4o-mini") 
 
@@ -18,7 +26,6 @@ prompt = ChatPromptTemplate.from_messages([
 
 chain = prompt | llm | StrOutputParser()
 
-history = FileChatMessageHistory("history.json")
 
 def chat(message):
     print(f"질문: {message}")
