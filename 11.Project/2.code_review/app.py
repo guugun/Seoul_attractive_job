@@ -7,38 +7,51 @@ from flask import Flask, send_from_directory, jsonify, request
 from openai import OpenAI
 
 load_dotenv()
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 app = Flask(__name__, static_folder="public")
+
 
 @app.route("/")
 def index():
     return send_from_directory("public", "index.html")
 
-@app.route('/api/fetch-code', methods=['POST'])
+
+@app.route("/api/fetch-code", methods=["POST"])
 def fetch_code():
     data = request.get_json()
-    github_url = data.get('url', '')
+    github_url = data.get("url", "")
 
     # GitHub URL → Raw URL 변환
-    raw_url = github_url.replace('github.com', 'raw.githubusercontent.com')
-    raw_url = raw_url.replace('/blob/', '/')
+    raw_url = github_url.replace("github.com", "raw.githubusercontent.com")
+    raw_url = raw_url.replace("/blob/", "/")
 
     # Raw URL로 소스코드 가져오기
     res = requests.get(raw_url)
     if res.status_code == 200:
-        return jsonify({'code': res.text})
+        return jsonify({"code": res.text})
     else:
-        return jsonify({'error': '코드를 가져오지 못했습니다.'}), 400
+        return jsonify({"error": "코드를 가져오지 못했습니다."}), 400
 
-@app.route('/api/codecheck', methods=['POST'])
+
+@app.route("/api/codecheck", methods=["POST"])
 def code_check():
     # 데이터를 JSON 형태로 받아온다
-    code = request.get_json()
-    # print(code)
+    data = request.get_json()
+    code = data.get("code", "")
+    vuln_types = data.get("vulnTypes", [])
+
+    if vuln_types:
+        vuln_list = "\n".join(f"- {v}" for v in vuln_types)
+        vuln_instruction = f"다음 취약점 유형에 집중하여 분석하시오:\n{vuln_list}\n\n"
+    else:
+        vuln_instruction = (
+            "모든 취약점 유형(OWASP Top 10 기준)을 대상으로 분석하시오.\n\n"
+        )
 
     prompt = (
         "다음 소스코드를 보고 취약점을 분석하시오.\n"
-        "각 취약점에 대해 해당 코드의 라인 번호, 코드 스니펫, 취약점 설명과 개선 방안을 간단하게 설명하시오. 코드 내의 주석은 무시해도 됩니다.\n\n"
+        + vuln_instruction
+        + "각 취약점에 대해 해당 코드의 라인 번호, 코드 스니펫, 취약점 설명과 개선 방안을 간단하게 설명하시오. 코드 내의 주석은 무시해도 됩니다.\n\n"
         "소스코드:\n"
         "----------\n"
         f"{code}\n"
@@ -51,13 +64,14 @@ def code_check():
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": "당신은 소스코드 분석 보안 전문가입니다."},
-            {"role": "user", "content": prompt}
-        ]
+            {"role": "user", "content": prompt},
+        ],
     )
     chatbot_reply = response.choices[0].message.content
 
     # 응답을 받아와서 반환한다.
     return jsonify({"result": chatbot_reply})
+
 
 if __name__ == "__main__":
     app.run(debug=True)

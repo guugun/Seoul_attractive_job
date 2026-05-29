@@ -15,6 +15,24 @@
 
     <form id="codeForm">
         <textarea id="code" name="code" rows="15" cols="80" placeholder="소스코드를 입력하세요"></textarea><br>
+
+        <div id="owaspSection">
+            <strong>진단할 취약점 유형 선택 (OWASP Top 10)</strong>
+            <div style="margin-top:8px">
+                <label><input type="checkbox" name="vuln" value="A01 - Broken Access Control (접근 제어 취약점)"> A01 - Broken Access Control</label><br>
+                <label><input type="checkbox" name="vuln" value="A02 - Cryptographic Failures (암호화 실패)"> A02 - Cryptographic Failures</label><br>
+                <label><input type="checkbox" name="vuln" value="A03 - Injection (SQL Injection, XSS 등)"> A03 - Injection (SQL Injection, XSS 등)</label><br>
+                <label><input type="checkbox" name="vuln" value="A04 - Insecure Design (안전하지 않은 설계)"> A04 - Insecure Design</label><br>
+                <label><input type="checkbox" name="vuln" value="A05 - Security Misconfiguration (보안 설정 오류)"> A05 - Security Misconfiguration</label><br>
+                <label><input type="checkbox" name="vuln" value="A06 - Vulnerable and Outdated Components (취약한 컴포넌트)"> A06 - Vulnerable and Outdated Components</label><br>
+                <label><input type="checkbox" name="vuln" value="A07 - Identification and Authentication Failures (인증 실패)"> A07 - Identification and Authentication Failures</label><br>
+                <label><input type="checkbox" name="vuln" value="A08 - Software and Data Integrity Failures (무결성 실패)"> A08 - Software and Data Integrity Failures</label><br>
+                <label><input type="checkbox" name="vuln" value="A09 - Security Logging and Monitoring Failures (로깅 실패)"> A09 - Security Logging and Monitoring Failures</label><br>
+                <label><input type="checkbox" name="vuln" value="A10 - Server-Side Request Forgery (SSRF)"> A10 - Server-Side Request Forgery (SSRF)</label><br>
+            </div>
+            <small>※ 아무것도 선택하지 않으면 전체 취약점을 분석합니다.</small>
+        </div><br>
+
         <button type="submit">분석시작</button>
     </form>
     <h2>분석 결과</h2>
@@ -43,12 +61,15 @@
             const code = document.getElementById('code').value;
             const result = document.getElementById('result');
 
+            // 선택된 취약점 유형 수집
+            const checked = document.querySelectorAll('input[name="vuln"]:checked');
+            const vulnTypes = Array.from(checked).map(cb => cb.value);
+
             // 1. fetch 로 POST로 소스코드 내용을 다 보낸다. application/json 으로 보낸다.
             const response = await fetch("/api/codecheck", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                // body: JSON.stringify({ code: code })  // 원래 문법은 key, value 각각 써야 하나.. JS가 아래처럼 축약 표현을 지원함
-                body: JSON.stringify({ code })
+                body: JSON.stringify({ code, vulnTypes })
             });
             const data = await response.json();
             console.log(data);
