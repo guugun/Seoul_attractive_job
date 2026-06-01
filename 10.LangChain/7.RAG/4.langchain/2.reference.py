@@ -38,27 +38,32 @@ retriever = store.as_retriever(search_kwargs={"k": 3})
 # 2. LLM + 프롬프트 설계하기
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "당신은 문서 기반 QA시스템입니다. 아래 문서만 참고해서 답변하시오."),
-    ("user", "{question}")
+    ("system", "당신은 문서 기반 QA시스템입니다. 반드시 아래 문서(Context)만 참고해서 답변하세요.\n"
+               "답변 규칙:\n"
+               "1) 핵심 답변을 번호 목록(1., 2., 3. ...)으로 작성하세요.\n"
+               "2) 각 답변 항목 끝에 반드시 [근거: n] 형태로 근거 문서 번호를 붙이세요.\n"
+               "3) 근거 번호 n은 Context의 [n] 번호와 반드시 일치해야 합니다.\n"
+               "4) 모르면 추측하지 말고 '문서에서 확인 불가'라고 작성하세요."),
+    ("user", "질문: {question}\n\n[Context]\n{context}")
 ])
 
 
 # 3. 표준 질의응답을 위한 파이프라인 설계 (체이닝)
 def format_docs(docs):
-    # return "\n\n".join(d.page_content for d in docs)
+    # 각 문서를 [번호] 형태로 고정해 답변의 근거 번호와 정확히 매칭한다.
     return "\n\n".join(f"[{i}] {d.page_content}" for i, d in enumerate(docs, start=1))
 
 #HW. 아래 코드에서 개별 답변 번호와 참고자료 번호 맞추기.. 그래서 중복 레퍼런스도 허용
 # 이때, 프롬프트에도 명확하게... 답변의 번호와 출처의 번호를 맞춰서 답변하시오..
 
-def extract_sources(docs):  # 우리의 소스를 unique 하게 출력한다.
-    seen, sources = set(), []
-    for d in docs:
+def extract_sources(docs):
+    # 숙제 요구사항: 답변 번호와 참고자료 번호를 맞추기 위해
+    # 문서 순서대로 번호를 부여하고, 중복 source도 그대로 허용한다.
+    numbered_sources = []
+    for i, d in enumerate(docs, start=1):
         src = d.metadata.get("source", "N/A")
-        if src not in seen:
-            seen.add(src)
-            sources.append(src)
-    return sources
+        numbered_sources.append({"idx": i, "source": src})
+    return numbered_sources
 
 def retrieve_and_split(inputs):
     docs = retriever.invoke(inputs["question"])
@@ -69,8 +74,8 @@ def retrieve_and_split(inputs):
     }
 
 def append_sources(d):
-    src_lines = "\n".join(f" - {s}" for s in d["sources"])
-    return f"{d["answer"]}\n\n 참고문서: \n{src_lines}"
+    src_lines = "\n".join(f"[{s['idx']}] {s['source']}" for s in d["sources"])
+    return f"{d['answer']}\n\n참고문서 번호 매핑:\n{src_lines}"
 
 chain = (
     RunnableLambda(retrieve_and_split)
