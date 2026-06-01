@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - 멀티유저 챗봇</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="login-wrapper">
+        <h1>🔐 로그인</h1>
+        <p class="subtitle">멀티유저 세션 챗봇</p>
+
+        <!-- 로그인 실패 등 메시지 표시 -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="flash">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="post" class="login-form">
+            <input type="text" name="username" placeholder="아이디" required>
+            <input type="password" name="password" placeholder="비밀번호" required>
+            <button type="submit">로그인</button>
+        </form>
+
+        <p class="hint">테스트 계정: user1 / password1 &nbsp;·&nbsp; user2 / password2</p>
+    </div>
+</body>
+</html>

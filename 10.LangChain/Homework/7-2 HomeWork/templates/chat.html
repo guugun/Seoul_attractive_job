@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멀티유저 챗봇</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- 왼쪽 대화 히스토리 사이드바 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>📂 대화 기록</h2>
+                <span class="sidebar-user">{{ username }}</span>
+            </div>
+            <ul id="history-list">
+                <!-- 사용자의 질문 기록이 여기에 채워짐 -->
+            </ul>
+        </aside>
+
+        <!-- 오른쪽 채팅 영역 -->
+        <div class="chatbot-wrapper">
+            <div class="chat-header">
+                <h1>💬 {{ username }}님의 챗봇</h1>
+                <a class="logout-btn" href="{{ url_for('logout') }}">로그아웃</a>
+            </div>
+
+            <div id="chat-container">
+                <div id="result"></div>
+            </div>
+
+            <form id="user-input-form">
+                <input type="text" id="user-input" placeholder="메시지를 입력하세요..." required>
+                <button type="submit">전송</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
