@@ -15,5 +15,5 @@ tools = load_tools(["wikipedia"])
 llm = ChatOpenAI(model="gpt-4o-mini")
 agent = create_agent(llm, tools)
 
-result = agent.invoke({"message": [("user", "파이썬 프로그래밍 언어는 누가 만들었어?")]})
+result = agent.invoke({"messages": [("user", "파이썬 프로그래밍 언어는 누가 만들었어?")]})
 print(result)
