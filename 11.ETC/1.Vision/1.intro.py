@@ -10,7 +10,17 @@ load_dotenv()
 
 client = OpenAI()
 
-
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    message=[
+{
+    'role':'user',
+    'content': [
+        {'type':'text', 'text':'이 이미지를 한국어로 설명해줘'},
+        {'type':'image', 'image_url':'YOUR_IMAGE_URL_HERE'}
+}
+    ]
+)
 
 
 
