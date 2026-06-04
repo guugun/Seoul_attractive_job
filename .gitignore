@@ -16,3 +16,6 @@ uploads/
 *.csv
 *.sqlite
 *.sqlite3
+
+
+temp/
